@@ -7,10 +7,10 @@
 
 | Status        | Count |
 | ------------- | ----- |
-| ✅ Done        | 0     |
+| ✅ Done        | 1     |
 | 🔧 In Progress | 0     |
-| 📋 Pending     | 1     |
-| 🚫 Blocked     | 14    |
+| 📋 Pending     | 2     |
+| 🚫 Blocked     | 12    |
 | ⏸️ Deferred    | 0     |
 
 ---
@@ -21,9 +21,9 @@
 
 | #   | Ticket                                                                                   | Status    | Depends On   | Notes |
 | --- | ---------------------------------------------------------------------------------------- | --------- | ------------ | ----- |
-| 001 | [Project Setup & Layout Shell](./001-project-setup.md)                                   | `pending` | —            |       |
-| 002 | [Database Schema & Drizzle Setup](./002-database-schema-and-drizzle-setup.md)            | `blocked` | #001         |       |
-| 003 | [Shared Types & Zod Validation](./003-shared-types-and-validation.md)                    | `blocked` | #001         |       |
+| 001 | [Project Setup & Layout Shell](./001-project-setup.md)                                   | `done`    | —            | Implemented |
+| 002 | [Database Schema & Drizzle Setup](./002-database-schema-and-drizzle-setup.md)            | `pending` | #001 ✅       | Unblocked |
+| 003 | [Shared Types & Zod Validation](./003-shared-types-and-validation.md)                    | `pending` | #001 ✅       | Unblocked |
 | 004 | [**TEST: Checkpoint 0 — Foundation Scaffold**](./004-test-checkpoint-0-foundation.md)    | `blocked` | #002, #003   | Gate: Phase 1 |
 
 ## Phase 2 — Card Display & Review

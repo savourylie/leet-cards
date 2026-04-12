@@ -1,7 +1,7 @@
 # [TICKET-001] Project Setup & Layout Shell
 
 ## Status
-`pending`
+`done`
 
 ## Dependencies
 - Requires: None
@@ -10,14 +10,14 @@
 Bootstrap the Next.js 14+ App Router project with all required dependencies, configure Tailwind CSS v4 with shadcn/ui, set up the font stack (Inter, Noto Sans TC, JetBrains Mono), and create the root layout with a responsive container. This is the foundational scaffold that every other ticket builds on.
 
 ## Acceptance Criteria
-- [ ] Next.js 14+ project initialised with App Router and TypeScript
-- [ ] All production dependencies installed: `next`, `react`, `react-dom`, `@vercel/postgres`, `drizzle-orm`, `zod`, `sonner`, `next-themes`
-- [ ] All dev dependencies installed: `drizzle-kit`, `tailwindcss` v4, `typescript`, `@types/react`
-- [ ] shadcn/ui initialised with Zinc-based neutral theme; components installed: `card`, `badge`, `button`, `dialog`, `textarea`, `select`, `separator`
-- [ ] Root layout (`app/layout.tsx`) renders with the correct font stack (`Inter`, `Noto Sans TC`, `system-ui` for sans; `JetBrains Mono`, `Fira Code` for mono)
-- [ ] `next-themes` ThemeProvider wraps the app with system/dark/light support
-- [ ] A centered responsive container with `max-w-[1080px]` is applied in the layout
-- [ ] `npm run dev` starts without errors and renders a placeholder home page
+- [x] Next.js 14+ project initialised with App Router and TypeScript
+- [x] All production dependencies installed: `next`, `react`, `react-dom`, `@vercel/postgres`, `drizzle-orm`, `zod`, `sonner`, `next-themes`
+- [x] All dev dependencies installed: `drizzle-kit`, `tailwindcss` v4, `typescript`, `@types/react`
+- [x] shadcn/ui initialised with Zinc-based neutral theme; components installed: `card`, `badge`, `button`, `dialog`, `textarea`, `select`, `separator`
+- [x] Root layout (`app/layout.tsx`) renders with the correct font stack (`Inter`, `Noto Sans TC`, `system-ui` for sans; `JetBrains Mono`, `Fira Code` for mono)
+- [x] `next-themes` ThemeProvider wraps the app with system/dark/light support
+- [x] A centered responsive container with `max-w-[1080px]` is applied in the layout
+- [x] `npm run dev` starts without errors and renders a placeholder home page
 
 ## Design Reference
 - **Typography**: § Typography — font families, body size 15px/1.7

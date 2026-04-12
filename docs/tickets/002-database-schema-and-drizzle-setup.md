@@ -1,10 +1,10 @@
 # [TICKET-002] Database Schema & Drizzle Setup
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #001
+- Requires: #001 ✅
 
 ## Description
 Set up the Drizzle ORM schema for the `cards` table, configure the database connection to Vercel Postgres (Neon), and create the initial migration. This ticket establishes the data layer that all card CRUD operations depend on.

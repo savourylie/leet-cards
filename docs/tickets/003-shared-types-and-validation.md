@@ -1,10 +1,10 @@
 # [TICKET-003] Shared Types & Zod Validation
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #001
+- Requires: #001 ✅
 
 ## Description
 Create the shared TypeScript types and Zod validation schemas used across the app. The Zod schema validates the JSON blob pasted in the admin page and is shared between client-side preview validation and server-side actions. This must be defined early so that both UI and data layer tickets can import from a single source of truth.
