@@ -1,7 +1,7 @@
 # [TICKET-002] Database Schema & Drizzle Setup
 
 ## Status
-`pending`
+`done`
 
 ## Dependencies
 - Requires: #001 ✅
@@ -10,12 +10,12 @@
 Set up the Drizzle ORM schema for the `cards` table, configure the database connection to Vercel Postgres (Neon), and create the initial migration. This ticket establishes the data layer that all card CRUD operations depend on.
 
 ## Acceptance Criteria
-- [ ] `db/schema.ts` defines the `cards` table matching the PRD data model (id, num, title, difficulty, tags, key_points, complexity, follow_ups, gotchas, created_at, last_reviewed)
-- [ ] `db/index.ts` exports a configured Drizzle client connected to Vercel Postgres via `POSTGRES_URL` env var
-- [ ] `drizzle.config.ts` is configured for Vercel Postgres with the correct schema path
-- [ ] Running `npx drizzle-kit generate` produces a valid SQL migration file
-- [ ] Running `npx drizzle-kit push` (or migrate script) applies the schema to the database without errors
-- [ ] Indexes exist on `num` and `difficulty` columns
+- [x] `db/schema.ts` defines the `cards` table matching the PRD data model (id, num, title, difficulty, tags, key_points, complexity, follow_ups, gotchas, created_at, last_reviewed)
+- [x] `db/index.ts` exports a configured Drizzle client connected to Vercel Postgres via `POSTGRES_URL` env var
+- [x] `drizzle.config.ts` is configured for Vercel Postgres with the correct schema path
+- [x] Running `npx drizzle-kit generate` produces a valid SQL migration file
+- [x] Running `npx drizzle-kit push` (or migrate script) applies the schema to the database without errors
+- [x] Indexes exist on `num` and `difficulty` columns
 
 ## Implementation Notes
 - Key files: `db/schema.ts`, `db/index.ts`, `drizzle.config.ts`

@@ -7,9 +7,9 @@
 
 | Status        | Count |
 | ------------- | ----- |
-| ✅ Done        | 1     |
+| ✅ Done        | 2     |
 | 🔧 In Progress | 0     |
-| 📋 Pending     | 2     |
+| 📋 Pending     | 1     |
 | 🚫 Blocked     | 12    |
 | ⏸️ Deferred    | 0     |
 
@@ -22,9 +22,9 @@
 | #   | Ticket                                                                                   | Status    | Depends On   | Notes |
 | --- | ---------------------------------------------------------------------------------------- | --------- | ------------ | ----- |
 | 001 | [Project Setup & Layout Shell](./001-project-setup.md)                                   | `done`    | —            | Implemented |
-| 002 | [Database Schema & Drizzle Setup](./002-database-schema-and-drizzle-setup.md)            | `pending` | #001 ✅       | Unblocked |
+| 002 | [Database Schema & Drizzle Setup](./002-database-schema-and-drizzle-setup.md)            | `done`    | #001 ✅       | Implemented (Supabase) |
 | 003 | [Shared Types & Zod Validation](./003-shared-types-and-validation.md)                    | `pending` | #001 ✅       | Unblocked |
-| 004 | [**TEST: Checkpoint 0 — Foundation Scaffold**](./004-test-checkpoint-0-foundation.md)    | `blocked` | #002, #003   | Gate: Phase 1 |
+| 004 | [**TEST: Checkpoint 0 — Foundation Scaffold**](./004-test-checkpoint-0-foundation.md)    | `blocked` | #002 ✅, #003   | Gate: Phase 1 |
 
 ## Phase 2 — Card Display & Review
 
