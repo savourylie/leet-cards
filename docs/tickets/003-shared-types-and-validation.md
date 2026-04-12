@@ -1,7 +1,7 @@
 # [TICKET-003] Shared Types & Zod Validation
 
 ## Status
-`pending`
+`done`
 
 ## Dependencies
 - Requires: #001 ✅
@@ -10,10 +10,10 @@
 Create the shared TypeScript types and Zod validation schemas used across the app. The Zod schema validates the JSON blob pasted in the admin page and is shared between client-side preview validation and server-side actions. This must be defined early so that both UI and data layer tickets can import from a single source of truth.
 
 ## Acceptance Criteria
-- [ ] `lib/validation.ts` exports a `cardSchema` Zod object matching the PRD JSON format (num, title, difficulty, tags, key_points, complexity, follow_ups, gotchas)
-- [ ] `cardSchema` correctly validates a well-formed card JSON and rejects malformed input (missing required fields, wrong types)
-- [ ] `lib/types.ts` exports a `Card` TypeScript type derived from the Drizzle schema or Zod schema (single source of truth, no manual duplication)
-- [ ] The sample JSON from the PRD passes validation without errors
+- [x] `lib/validation.ts` exports a `cardSchema` Zod object matching the PRD JSON format (num, title, difficulty, tags, key_points, complexity, follow_ups, gotchas)
+- [x] `cardSchema` correctly validates a well-formed card JSON and rejects malformed input (missing required fields, wrong types)
+- [x] `lib/types.ts` exports a `Card` TypeScript type derived from the Drizzle schema or Zod schema (single source of truth, no manual duplication)
+- [x] The sample JSON from the PRD passes validation without errors
 
 ## Implementation Notes
 - Key files: `lib/validation.ts`, `lib/types.ts`

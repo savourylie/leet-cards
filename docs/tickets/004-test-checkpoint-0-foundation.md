@@ -1,10 +1,10 @@
 # [TICKET-004] TEST: Checkpoint 0 — Foundation Scaffold
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #002 ✅, #003
+- Requires: #002 ✅, #003 ✅
 
 ## Description
 Verify that the full foundation layer is solid before building any UI. This checkpoint tests that the project runs, the database is connected and migrated, the Zod validation works, fonts load correctly, and dark mode toggles. This is a gate — Phase 2 tickets cannot begin until all checks pass.
