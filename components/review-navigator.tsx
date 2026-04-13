@@ -20,6 +20,7 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [reviewedIds, setReviewedIds] = useState<Set<number>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
 
   const total = cards.length;
   const currentCard = cards[currentIndex];
@@ -85,6 +86,31 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
     }
   }
 
+  function handleTouchStart(e: React.TouchEvent) {
+    if (e.touches.length === 1) {
+      touchStartX.current = e.touches[0].clientX;
+    }
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const deltaX = touchStartX.current - touchEndX;
+
+    if (deltaX > 50 && currentIndex < total - 1) {
+      // Swipe left (next card)
+      setDirection("forward");
+      setCurrentIndex((i) => i + 1);
+    } else if (deltaX < -50 && currentIndex > 0) {
+      // Swipe right (prev card)
+      setDirection("backward");
+      setCurrentIndex((i) => i - 1);
+    }
+    
+    touchStartX.current = null;
+  }
+
   return (
     <div className="space-y-6 py-4">
       <div aria-live="polite" className="sr-only">
@@ -112,6 +138,8 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
             ? "slide-in-from-right-5"
             : "slide-in-from-left-5",
         )}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <Flashcard
           card={currentCard as unknown as CardInput}

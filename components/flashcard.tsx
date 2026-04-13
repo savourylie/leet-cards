@@ -88,17 +88,24 @@ function FlashcardList({ items }: { items: string[] }) {
 
 export function Flashcard({ card, className, onFlip }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [flipStateAnnouncement, setFlipStateAnnouncement] = useState("");
 
   function handleFlip() {
-    setIsFlipped((currentValue) => {
-      const nextValue = !currentValue;
-      onFlip?.(nextValue);
-      return nextValue;
-    });
+    const nextValue = !isFlipped;
+    setIsFlipped(nextValue);
+    onFlip?.(nextValue);
+    setFlipStateAnnouncement(
+      nextValue
+        ? "Card flipped to back — showing key points, complexity, follow-ups, gotchas"
+        : "Card flipped to front — showing problem summary"
+    );
   }
 
   return (
     <div className={cn("w-full [perspective:800px]", className)}>
+      <div className="sr-only" aria-live="polite">
+        {flipStateAnnouncement}
+      </div>
       <div
         className={cn(
           "relative min-h-[30rem] transition-transform duration-[400ms] ease-[ease] [transform-style:preserve-3d] sm:min-h-[32rem] lg:min-h-[34rem]",
