@@ -1,7 +1,7 @@
 # [TICKET-005] Home Page Card Grid
 
 ## Status
-`pending`
+`done`
 
 ## Dependencies
 - Requires: #004 ✅
@@ -10,12 +10,12 @@
 Build the landing page that displays all flashcards in a responsive grid. This is the primary entry point — users land here, scan their cards, and click one to enter review mode. The page is a Server Component that fetches cards from the database and renders them with difficulty badges, relative review timestamps, and a "New" indicator for never-reviewed cards.
 
 ## Acceptance Criteria
-- [ ] `app/page.tsx` fetches all cards from the database and renders a responsive grid (1 col mobile, 2 cols tablet, 3 cols desktop)
-- [ ] Each card displays: problem number (muted), title (bold 18px weight 600), difficulty badge with correct semantic colors, and relative time since last review
-- [ ] Cards never reviewed show a distinct visual indicator (e.g., "New" badge or left border accent)
-- [ ] Clicking a card navigates to `/review/[id]`
-- [ ] Grid uses `gap-4` spacing and the page respects the `max-w-[1080px]` container
-- [ ] Page header shows "LeetCode Flashcards" and total card count (e.g., "[12 cards]")
+- [x] `app/page.tsx` fetches all cards from the database and renders a responsive grid (1 col mobile, 2 cols tablet, 3 cols desktop)
+- [x] Each card displays: problem number (muted), title (bold 18px weight 600), difficulty badge with correct semantic colors, and relative time since last review
+- [x] Cards never reviewed show a distinct visual indicator (e.g., "New" badge or left border accent)
+- [x] Clicking a card navigates to `/review/[id]`
+- [x] Grid uses `gap-4` spacing and the page respects the `max-w-[1080px]` container
+- [x] Page header shows "LeetCode Flashcards" and total card count (e.g., "[12 cards]")
 
 ## Design Reference
 - **Layout**: § Home (`/`) — grid layout wireframe, `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`
