@@ -1,10 +1,10 @@
 # [TICKET-015] TEST: Final Checkpoint — End-to-End
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #013, #014
+- Requires: #013 ✅, #014 ✅
 
 ## Description
 Final end-to-end verification of the complete LeetCode Flashcard Reviewer app. This checkpoint tests the full user workflow from card creation to review, verifies all features work together, checks responsive design at all breakpoints, validates dark mode, and confirms accessibility compliance. No ticket may be marked as "done" for the project until this checkpoint passes.

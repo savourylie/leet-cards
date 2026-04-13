@@ -1,7 +1,7 @@
 # [TICKET-014] Touch Gestures & Accessibility
 
 ## Status
-`blocked`
+`done`
 
 ## Dependencies
 - Requires: #012
@@ -10,13 +10,13 @@
 Add touch/swipe support for mobile review navigation and ensure the app meets accessibility requirements: `aria-live` announcements for card flips, visible focus rings, keyboard navigability for all interactive elements, and sufficient color contrast. These are finishing touches that make the app usable on mobile and accessible to all users.
 
 ## Acceptance Criteria
-- [ ] Swiping left on the flashcard in review mode navigates to the next card
-- [ ] Swiping right on the flashcard navigates to the previous card
-- [ ] Tapping the flashcard flips it (already works from #007 click handler — verify on touch devices)
-- [ ] Card flip state change is announced via an `aria-live="polite"` region (e.g., "Card flipped to back" / "Card flipped to front")
-- [ ] All interactive elements (buttons, cards, links, filter toggles) are reachable via Tab key and show visible focus rings
-- [ ] Difficulty badges convey information via text, not color alone (already the case — verify)
-- [ ] All text meets WCAG 4.5:1 minimum contrast ratio (check with DevTools or axe)
+- [x] Swiping left on the flashcard in review mode navigates to the next card
+- [x] Swiping right on the flashcard navigates to the previous card
+- [x] Tapping the flashcard flips it (already works from #007 click handler — verify on touch devices)
+- [x] Card flip state change is announced via an `aria-live="polite"` region (e.g., "Card flipped to back" / "Card flipped to front")
+- [x] All interactive elements (buttons, cards, links, filter toggles) are reachable via Tab key and show visible focus rings
+- [x] Difficulty badges convey information via text, not color alone (already the case — verify)
+- [x] All text meets WCAG 4.5:1 minimum contrast ratio (check with DevTools or axe)
 
 ## Design Reference
 - **Interactions**: § Interactions — swipe left/right for navigation, tap to flip

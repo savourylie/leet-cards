@@ -7,10 +7,10 @@
 
 | Status        | Count |
 | ------------- | ----- |
-| ✅ Done        | 13    |
+| ✅ Done        | 14    |
 | 🔧 In Progress | 0     |
 | 📋 Pending     | 1     |
-| 🚫 Blocked     | 1     |
+| 🚫 Blocked     | 0     |
 | ⏸️ Deferred    | 0     |
 
 ---
@@ -49,8 +49,8 @@
 | #   | Ticket                                                                                  | Status    | Depends On   | Notes |
 | --- | --------------------------------------------------------------------------------------- | --------- | ------------ | ----- |
 | 013 | [Quick Stats Display](./013-quick-stats-display.md)                                     | `done`    | #012 ✅      | Implemented |
-| 014 | [Touch Gestures & Accessibility](./014-touch-gestures-and-accessibility.md)              | `pending` | #012 ✅      | Unblocked |
-| 015 | [**TEST: Final Checkpoint — End-to-End**](./015-test-final-checkpoint.md)                | `blocked` | #013, #014   | Gate: Final |
+| 014 | [Touch Gestures & Accessibility](./014-touch-gestures-and-accessibility.md)              | `done`    | #012 ✅      | Implemented |
+| 015 | [**TEST: Final Checkpoint — End-to-End**](./015-test-final-checkpoint.md)                | `pending` | #013 ✅, #014 ✅   | Unblocked |
 
 ---
 
