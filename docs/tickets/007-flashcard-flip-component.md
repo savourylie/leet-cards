@@ -1,7 +1,7 @@
 # [TICKET-007] Flashcard Flip Component
 
 ## Status
-`pending`
+`done`
 
 ## Dependencies
 - Requires: #004 ✅
@@ -10,13 +10,13 @@
 Build the core flashcard component with CSS 3D flip animation. This is the centrepiece of the review experience — a card with a front face (problem info) and back face (study content) that flips with a smooth 3D rotation. The component is a reusable Client Component that receives card data as props.
 
 ## Acceptance Criteria
-- [ ] `components/flashcard.tsx` renders a card with two faces: front and back
-- [ ] Front face displays: problem number, title, difficulty badge, and tag badges
-- [ ] Back face displays: KEY POINTS (bulleted list), COMPLEXITY, FOLLOW-UP QUESTIONS (bulleted list), GOTCHAS (bulleted list) — each with uppercase section labels
-- [ ] Clicking or tapping the card triggers a 3D flip animation (`rotateY(180deg)`) with `perspective: 800px` and `transition: 400ms ease`
-- [ ] The back face text is not mirrored (correctly uses `backface-visibility: hidden` on both faces)
-- [ ] Section labels on back face: 12px, weight 500, uppercase, letter-spacing 0.5px, muted color
-- [ ] Bilingual content (English + Mandarin) renders correctly without layout breakage
+- [x] `components/flashcard.tsx` renders a card with two faces: front and back
+- [x] Front face displays: problem number, title, difficulty badge, and tag badges
+- [x] Back face displays: KEY POINTS (bulleted list), COMPLEXITY, FOLLOW-UP QUESTIONS (bulleted list), GOTCHAS (bulleted list) — each with uppercase section labels
+- [x] Clicking or tapping the card triggers a 3D flip animation (`rotateY(180deg)`) with `perspective: 800px` and `transition: 400ms ease`
+- [x] The back face text is not mirrored (correctly uses `backface-visibility: hidden` on both faces)
+- [x] Section labels on back face: 12px, weight 500, uppercase, letter-spacing 0.5px, muted color
+- [x] Bilingual content (English + Mandarin) renders correctly without layout breakage
 
 ## Design Reference
 - **Animation**: § Animation — card flip: `transition: transform 400ms ease` with `perspective: 800px`
