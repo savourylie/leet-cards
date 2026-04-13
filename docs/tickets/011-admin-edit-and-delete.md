@@ -1,7 +1,7 @@
 # [TICKET-011] Admin — Edit & Delete Cards
 
 ## Status
-`pending`
+`done`
 
 ## Dependencies
 - Requires: #010 ✅
@@ -10,12 +10,12 @@
 Add card management to the admin page: a list of all existing cards with edit and delete actions. Edit opens a dialog pre-filled with the card's current data as editable form fields. Delete shows a confirmation dialog before removal. Both actions use Server Actions and provide toast feedback.
 
 ## Acceptance Criteria
-- [ ] Below the "Add card" section, an "Existing cards" section lists all cards showing: problem number, title, and Edit / Delete buttons
-- [ ] Clicking "Edit" opens a shadcn Dialog with form fields pre-filled: num, title, difficulty (select), tags (comma-separated input), key_points (textarea, one per line), complexity, follow_ups (textarea), gotchas (textarea)
-- [ ] Saving edits calls a Server Action that updates the card in the database; toast: "Card updated: #706 Design HashMap"
-- [ ] Clicking "Delete" opens a confirmation dialog: "Delete #706 Design HashMap? This cannot be undone."
-- [ ] Confirming delete calls a Server Action that removes the card; toast: "Card deleted"
-- [ ] After save or delete, the card list updates to reflect the change (via `revalidatePath`)
+- [x] Below the "Add card" section, an "Existing cards" section lists all cards showing: problem number, title, and Edit / Delete buttons
+- [x] Clicking "Edit" opens a shadcn Dialog with form fields pre-filled: num, title, difficulty (select), tags (comma-separated input), key_points (textarea, one per line), complexity, follow_ups (textarea), gotchas (textarea)
+- [x] Saving edits calls a Server Action that updates the card in the database; toast: "Card updated: #706 Design HashMap"
+- [x] Clicking "Delete" opens a confirmation dialog: "Delete #706 Design HashMap? This cannot be undone."
+- [x] Confirming delete calls a Server Action that removes the card; toast: "Card deleted"
+- [x] After save or delete, the card list updates to reflect the change (via `revalidatePath`)
 
 ## Design Reference
 - **Layout**: § Admin (`/admin`) — existing cards list wireframe with Edit/Del buttons

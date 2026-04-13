@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 import { ZodError } from 'zod'
@@ -14,6 +15,7 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
 export function JsonPasteForm() {
+  const router = useRouter()
   const [jsonStr, setJsonStr] = useState('')
   const [parsedData, setParsedData] = useState<CardInput | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -63,6 +65,7 @@ export function JsonPasteForm() {
         toast.success(`Card added: #${parsedData.num} ${parsedData.title}`)
         setJsonStr('')
         setParsedData(null)
+        router.refresh()
       }
     } catch {
       toast.error('An unexpected error occurred')
