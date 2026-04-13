@@ -1,10 +1,10 @@
 # [TICKET-009] TEST: Checkpoint 1 — Card Display & Review
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #006, #008
+- Requires: #006 ✅, #008 ✅
 
 ## Description
 Verify the complete card display and review experience before building the admin CRUD interface. This checkpoint tests the home page grid with filtering/sorting, the flashcard flip animation, review mode navigation, keyboard shortcuts, and the `last_reviewed` update mechanism. All user-facing read paths must work end-to-end.

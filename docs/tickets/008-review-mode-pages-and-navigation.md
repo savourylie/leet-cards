@@ -1,7 +1,7 @@
 # [TICKET-008] Review Mode Pages & Navigation
 
 ## Status
-`blocked`
+`done`
 
 ## Dependencies
 - Requires: #005, #007
@@ -10,14 +10,14 @@
 Build the review mode routes (`/review` and `/review/[id]`) with card navigation (prev/next), keyboard shortcuts, and automatic `last_reviewed` timestamp updates. This brings together the flashcard component from #007 with the card data layer to create the full review experience. `/review` shows all cards in random order; `/review/[id]` starts from a specific card and continues sequentially.
 
 ## Acceptance Criteria
-- [ ] `/review` loads all cards and presents them in random order, starting with the first
-- [ ] `/review/[id]` loads the specific card first, then allows navigating to adjacent cards sequentially
-- [ ] Prev/Next buttons navigate between cards with a subtle slide transition (`opacity 0→1` + `translateX(±20px)`, 200ms)
-- [ ] Keyboard shortcuts work: `Space` or `Enter` to flip, `←` / `→` to navigate, `Esc` to go back to home
-- [ ] A "Back" link in the top-left navigates to `/`
-- [ ] A progress indicator (e.g., "3 / 12") shows current position and total cards
-- [ ] Flipping a card triggers a Server Action that updates the card's `last_reviewed` timestamp
-- [ ] Navigating to a new card resets the flip state (always shows front first)
+- [x] `/review` loads all cards and presents them in random order, starting with the first
+- [x] `/review/[id]` loads the specific card first, then allows navigating to adjacent cards sequentially
+- [x] Prev/Next buttons navigate between cards with a subtle slide transition (`opacity 0→1` + `translateX(±20px)`, 200ms)
+- [x] Keyboard shortcuts work: `Space` or `Enter` to flip, `←` / `→` to navigate, `Esc` to go back to home
+- [x] A "Back" link in the top-left navigates to `/`
+- [x] A progress indicator (e.g., "3 / 12") shows current position and total cards
+- [x] Flipping a card triggers a Server Action that updates the card's `last_reviewed` timestamp
+- [x] Navigating to a new card resets the flip state (always shows front first)
 
 ## Design Reference
 - **Layout**: § Review mode — wireframe for front and flipped states, nav buttons, progress indicator

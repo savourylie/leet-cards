@@ -7,10 +7,10 @@
 
 | Status        | Count |
 | ------------- | ----- |
-| ✅ Done        | 7     |
+| ✅ Done        | 8     |
 | 🔧 In Progress | 0     |
 | 📋 Pending     | 1     |
-| 🚫 Blocked     | 7     |
+| 🚫 Blocked     | 6     |
 | ⏸️ Deferred    | 0     |
 
 ---
@@ -33,8 +33,8 @@
 | 005 | [Home Page Card Grid](./005-home-page-card-grid.md)                                            | `done`    | #004 ✅       | Implemented |
 | 006 | [Card Filter & Sort Controls](./006-card-filter-and-sort.md)                                   | `done`    | #005 ✅       | Implemented |
 | 007 | [Flashcard Flip Component](./007-flashcard-flip-component.md)                                  | `done`    | #004 ✅       | Implemented |
-| 008 | [Review Mode Pages & Navigation](./008-review-mode-pages-and-navigation.md)                    | `pending` | #005 ✅, #007 ✅ | Unblocked — #007 done |
-| 009 | [**TEST: Checkpoint 1 — Card Display & Review**](./009-test-checkpoint-1-display-and-review.md) | `blocked` | #006 ✅, #008 | Gate: Phase 2 |
+| 008 | [Review Mode Pages & Navigation](./008-review-mode-pages-and-navigation.md)                    | `done`    | #005 ✅, #007 ✅ | Implemented |
+| 009 | [**TEST: Checkpoint 1 — Card Display & Review**](./009-test-checkpoint-1-display-and-review.md) | `pending` | #006 ✅, #008 ✅ | Unblocked — #008 done |
 
 ## Phase 3 — Admin CRUD
 
