@@ -1,10 +1,10 @@
 # [TICKET-005] Home Page Card Grid
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #004
+- Requires: #004 ✅
 
 ## Description
 Build the landing page that displays all flashcards in a responsive grid. This is the primary entry point — users land here, scan their cards, and click one to enter review mode. The page is a Server Component that fetches cards from the database and renders them with difficulty badges, relative review timestamps, and a "New" indicator for never-reviewed cards.

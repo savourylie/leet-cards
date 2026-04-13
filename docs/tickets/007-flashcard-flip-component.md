@@ -1,10 +1,10 @@
 # [TICKET-007] Flashcard Flip Component
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #004
+- Requires: #004 ✅
 
 ## Description
 Build the core flashcard component with CSS 3D flip animation. This is the centrepiece of the review experience — a card with a front face (problem info) and back face (study content) that flips with a smooth 3D rotation. The component is a reusable Client Component that receives card data as props.

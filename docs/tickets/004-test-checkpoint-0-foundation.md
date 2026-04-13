@@ -1,7 +1,7 @@
 # [TICKET-004] TEST: Checkpoint 0 — Foundation Scaffold
 
 ## Status
-`pending`
+`done`
 
 ## Dependencies
 - Requires: #002 ✅, #003 ✅
@@ -10,15 +10,15 @@
 Verify that the full foundation layer is solid before building any UI. This checkpoint tests that the project runs, the database is connected and migrated, the Zod validation works, fonts load correctly, and dark mode toggles. This is a gate — Phase 2 tickets cannot begin until all checks pass.
 
 ## Acceptance Criteria
-- [ ] `npm run dev` starts with no errors; `localhost:3000` renders the layout
-- [ ] Browser DevTools confirm Inter and Noto Sans TC fonts are loaded
-- [ ] Dark mode: toggling the theme switches the `<html>` class and background/text colors change
-- [ ] Database: the `cards` table exists with correct columns (verify via Drizzle Studio or `psql`)
-- [ ] Database: inserting a sample card row via Drizzle Studio or seed script succeeds
-- [ ] Validation: importing `cardSchema` and parsing the PRD sample JSON returns a valid result
-- [ ] Validation: parsing `{ "num": "not-a-number" }` returns a ZodError
-- [ ] No TypeScript errors: `npx tsc --noEmit` completes with zero errors
-- [ ] No lint errors: `npm run lint` passes (if configured)
+- [x] `npm run dev` starts with no errors; `localhost:3000` renders the layout
+- [x] Browser DevTools confirm Inter and Noto Sans TC fonts are loaded
+- [x] Dark mode: toggling the theme switches the `<html>` class and background/text colors change
+- [x] Database: the `cards` table exists with correct columns (verify via Drizzle Studio or `psql`)
+- [x] Database: inserting a sample card row via Drizzle Studio or seed script succeeds
+- [x] Validation: importing `cardSchema` and parsing the PRD sample JSON returns a valid result
+- [x] Validation: parsing `{ "num": "not-a-number" }` returns a ZodError
+- [x] No TypeScript errors: `npx tsc --noEmit` completes with zero errors
+- [x] No lint errors: `npm run lint` passes (if configured)
 
 ## Implementation Notes
 This is a manual test execution ticket — no code changes unless bugs are found during testing.
