@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import type { Card } from "@/lib/types";
 import {
@@ -17,8 +17,8 @@ import {
   Select,
   SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
 } from "@/components/ui/select";
 
 type CardFilterProps = {
@@ -79,6 +79,7 @@ export function CardFilter({
   initialDifficulty,
   initialSort,
 }: CardFilterProps) {
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const difficultyParam = searchParams.get("difficulty");
@@ -113,7 +114,7 @@ export function CardFilter({
     const queryString = params.toString();
     const nextUrl = queryString ? `${pathname}?${queryString}` : pathname;
 
-    window.history.replaceState(null, "", nextUrl);
+    router.replace(nextUrl, { scroll: false });
   }
 
   return (

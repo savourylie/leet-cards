@@ -7,10 +7,10 @@
 
 | Status        | Count |
 | ------------- | ----- |
-| ✅ Done        | 8     |
+| ✅ Done        | 9     |
 | 🔧 In Progress | 0     |
 | 📋 Pending     | 1     |
-| 🚫 Blocked     | 6     |
+| 🚫 Blocked     | 5     |
 | ⏸️ Deferred    | 0     |
 
 ---
@@ -34,13 +34,13 @@
 | 006 | [Card Filter & Sort Controls](./006-card-filter-and-sort.md)                                   | `done`    | #005 ✅       | Implemented |
 | 007 | [Flashcard Flip Component](./007-flashcard-flip-component.md)                                  | `done`    | #004 ✅       | Implemented |
 | 008 | [Review Mode Pages & Navigation](./008-review-mode-pages-and-navigation.md)                    | `done`    | #005 ✅, #007 ✅ | Implemented |
-| 009 | [**TEST: Checkpoint 1 — Card Display & Review**](./009-test-checkpoint-1-display-and-review.md) | `pending` | #006 ✅, #008 ✅ | Unblocked — #008 done |
+| 009 | [**TEST: Checkpoint 1 — Card Display & Review**](./009-test-checkpoint-1-display-and-review.md) | `done`    | #006 ✅, #008 ✅ | Checkpoint passed |
 
 ## Phase 3 — Admin CRUD
 
 | #   | Ticket                                                                                     | Status    | Depends On | Notes |
 | --- | ------------------------------------------------------------------------------------------ | --------- | ---------- | ----- |
-| 010 | [Admin — JSON Paste & Card Creation](./010-admin-json-paste-and-card-creation.md)          | `blocked` | #009       |       |
+| 010 | [Admin — JSON Paste & Card Creation](./010-admin-json-paste-and-card-creation.md)          | `pending` | #009 ✅     |       |
 | 011 | [Admin — Edit & Delete Cards](./011-admin-edit-and-delete.md)                              | `blocked` | #010       |       |
 | 012 | [**TEST: Checkpoint 2 — Full CRUD Operations**](./012-test-checkpoint-2-full-crud.md)      | `blocked` | #011       | Gate: Phase 3 |
 

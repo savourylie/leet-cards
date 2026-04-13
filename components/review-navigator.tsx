@@ -18,6 +18,7 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
+  const [reviewedIds, setReviewedIds] = useState<Set<number>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
 
   const total = cards.length;
@@ -78,7 +79,8 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
   }
 
   async function handleFlip(isFlipped: boolean) {
-    if (isFlipped) {
+    if (isFlipped && !reviewedIds.has(currentCard.id)) {
+      setReviewedIds((prev) => new Set(prev).add(currentCard.id));
       await updateLastReviewed(currentCard.id);
     }
   }

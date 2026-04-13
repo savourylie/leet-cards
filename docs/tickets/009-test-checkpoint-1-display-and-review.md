@@ -1,7 +1,7 @@
 # [TICKET-009] TEST: Checkpoint 1 — Card Display & Review
 
 ## Status
-`pending`
+`done`
 
 ## Dependencies
 - Requires: #006 ✅, #008 ✅
@@ -12,20 +12,20 @@ Verify the complete card display and review experience before building the admin
 This is a gate — Phase 3 (Admin) tickets cannot begin until all checks pass.
 
 ## Acceptance Criteria
-- [ ] Home page (`/`) renders a responsive card grid with seed data — 3 cols on desktop, 2 on tablet, 1 on mobile
-- [ ] Difficulty badges show correct colors: green (easy), amber (medium), red (hard)
-- [ ] Never-reviewed cards display a "New" indicator
-- [ ] Difficulty filter buttons work: clicking "Easy" shows only easy cards, "All" resets
-- [ ] Sort dropdown works: "Problem number" sorts ascending by `num`, "Recently reviewed" sorts by `last_reviewed` descending
-- [ ] Clicking a card from the grid navigates to `/review/[id]`
-- [ ] Flashcard flip animation is smooth (400ms 3D rotate, no mirrored text)
-- [ ] Back face displays all four sections (KEY POINTS, COMPLEXITY, FOLLOW-UPS, GOTCHAS) with correct label styling
-- [ ] Keyboard shortcuts work in review mode: Space/Enter flip, ←/→ navigate, Esc exits
-- [ ] Prev/Next buttons navigate with slide transition
-- [ ] Progress indicator ("3 / 12") updates correctly
-- [ ] Flipping a card updates `last_reviewed` in the database
-- [ ] `/review` (no ID) presents cards in random order
-- [ ] Bilingual content (English + Mandarin) renders without layout issues
+- [x] Home page (`/`) renders a responsive card grid with seed data — 3 cols on desktop, 2 on tablet, 1 on mobile
+- [x] Difficulty badges show correct colors: green (easy), amber (medium), red (hard)
+- [x] Never-reviewed cards display a "New" indicator
+- [x] Difficulty filter buttons work: clicking "Easy" shows only easy cards, "All" resets
+- [x] Sort dropdown works: "Problem number" sorts ascending by `num`, "Recently reviewed" sorts by `last_reviewed` descending
+- [x] Clicking a card from the grid navigates to `/review/[id]`
+- [x] Flashcard flip animation is smooth (400ms 3D rotate, no mirrored text)
+- [x] Back face displays all four sections (KEY POINTS, COMPLEXITY, FOLLOW-UPS, GOTCHAS) with correct label styling
+- [x] Keyboard shortcuts work in review mode: Space/Enter flip, ←/→ navigate, Esc exits
+- [x] Prev/Next buttons navigate with slide transition
+- [x] Progress indicator ("3 / 12") updates correctly
+- [x] Flipping a card updates `last_reviewed` in the database
+- [x] `/review` (no ID) presents cards in random order
+- [x] Bilingual content (English + Mandarin) renders without layout issues
 
 ## Implementation Notes
 This is a manual test execution ticket — no code changes unless bugs are found during testing.

@@ -76,7 +76,7 @@ function FlashcardList({ items }: { items: string[] }) {
     <ul className="space-y-2 pl-5 text-[14px] leading-[1.6]">
       {items.map((item, index) => (
         <li
-          key={`${index}-${item}`}
+          key={index}
           className="break-words [overflow-wrap:anywhere]"
         >
           {item}

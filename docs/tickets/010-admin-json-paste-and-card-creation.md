@@ -1,10 +1,10 @@
 # [TICKET-010] Admin — JSON Paste & Card Creation
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #009
+- Requires: #009 ✅
 
 ## Description
 Build the admin page's primary workflow: pasting a JSON block from a Claude session to create a new flashcard. This is the most critical admin feature — it must be fast and friction-free. The textarea validates input with Zod in real-time, shows a live preview of the parsed card, and saves via a Server Action with toast feedback.
