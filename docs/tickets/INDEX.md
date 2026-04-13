@@ -7,9 +7,9 @@
 
 | Status        | Count |
 | ------------- | ----- |
-| ✅ Done        | 14    |
+| ✅ Done        | 15    |
 | 🔧 In Progress | 0     |
-| 📋 Pending     | 1     |
+| 📋 Pending     | 0     |
 | 🚫 Blocked     | 0     |
 | ⏸️ Deferred    | 0     |
 
@@ -50,7 +50,7 @@
 | --- | --------------------------------------------------------------------------------------- | --------- | ------------ | ----- |
 | 013 | [Quick Stats Display](./013-quick-stats-display.md)                                     | `done`    | #012 ✅      | Implemented |
 | 014 | [Touch Gestures & Accessibility](./014-touch-gestures-and-accessibility.md)              | `done`    | #012 ✅      | Implemented |
-| 015 | [**TEST: Final Checkpoint — End-to-End**](./015-test-final-checkpoint.md)                | `pending` | #013 ✅, #014 ✅   | Unblocked |
+| 015 | [**TEST: Final Checkpoint — End-to-End**](./015-test-final-checkpoint.md)                | `done`    | #013 ✅, #014 ✅   | Checkpoint passed |
 
 ---
 

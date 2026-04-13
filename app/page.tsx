@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { connection } from "next/server";
 
 import {
@@ -91,8 +92,14 @@ export default async function Home({ searchParams }: HomeProps) {
         <section className="rounded-xl border border-dashed bg-card/60 px-6 py-12 text-center">
           <h2 className="text-lg font-semibold tracking-tight">No cards yet</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Add your first flashcard from <span className="font-mono">/admin</span>{" "}
-            once the admin flow is in place.
+            Add your first flashcard in{" "}
+            <Link
+              href="/admin"
+              className="font-mono text-foreground underline underline-offset-4"
+            >
+              /admin
+            </Link>
+            .
           </p>
         </section>
       ) : (
