@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import type { Card } from "@/lib/types";
 import {
+  formatRelativeReviewTime,
   getDifficultyBadgeClass,
   getDifficultyLabel,
 } from "@/lib/card-display";
@@ -12,45 +13,6 @@ import { Card as SurfaceCard, CardContent, CardHeader, CardTitle } from "@/compo
 type CardGridProps = {
   cards: Card[];
 };
-
-const relativeTimeFormatter = new Intl.RelativeTimeFormat("en", {
-  numeric: "auto",
-});
-
-const relativeTimeUnits = [
-  { unit: "year", seconds: 60 * 60 * 24 * 365 },
-  { unit: "month", seconds: 60 * 60 * 24 * 30 },
-  { unit: "week", seconds: 60 * 60 * 24 * 7 },
-  { unit: "day", seconds: 60 * 60 * 24 },
-  { unit: "hour", seconds: 60 * 60 },
-  { unit: "minute", seconds: 60 },
-] satisfies Array<{ unit: Intl.RelativeTimeFormatUnit; seconds: number }>;
-
-function formatRelativeReviewTime(lastReviewed: string | null) {
-  if (!lastReviewed) {
-    return "Never reviewed";
-  }
-
-  const timestamp = new Date(lastReviewed).getTime();
-
-  if (Number.isNaN(timestamp)) {
-    return "Review date unavailable";
-  }
-
-  const diffSeconds = Math.round((timestamp - Date.now()) / 1000);
-
-  if (Math.abs(diffSeconds) < 60) {
-    return "Just now";
-  }
-
-  for (const { unit, seconds } of relativeTimeUnits) {
-    if (Math.abs(diffSeconds) >= seconds || unit === "minute") {
-      return relativeTimeFormatter.format(Math.round(diffSeconds / seconds), unit);
-    }
-  }
-
-  return "Just now";
-}
 
 export function CardGrid({ cards }: CardGridProps) {
   return (

@@ -1,19 +1,19 @@
 # [TICKET-013] Quick Stats Display
 
 ## Status
-`blocked`
+`done`
 
 ## Dependencies
 - Requires: #012
 
 ## Description
-Add a quick stats summary to the home page header showing total card count, cards never reviewed, and review streak info. The PRD calls for lightweight stats that give a sense of progress without requiring a separate analytics page. These stats are computed server-side and rendered as part of the home page Server Component.
+Add a quick stats summary to the home page header showing total card count, cards never reviewed, and the latest review info. The PRD calls for lightweight stats that give a sense of progress without requiring a separate analytics page. These stats are computed server-side and rendered as part of the home page Server Component.
 
 ## Acceptance Criteria
-- [ ] Home page header displays total card count (already partially done in #005 — this ticket ensures it's accurate and styled)
-- [ ] A "never reviewed" count is visible (e.g., "4 cards never reviewed" or "4 new")
-- [ ] Last reviewed date per card is already shown in the grid from #005 — verify accuracy after CRUD operations
-- [ ] Stats update immediately after adding, editing, or deleting cards (server-side render, no stale cache)
+- [x] Home page header displays total card count (already partially done in #005 — this ticket ensures it's accurate and styled)
+- [x] A "never reviewed" count is visible (e.g., "4 cards never reviewed" or "4 new")
+- [x] Last reviewed date per card is already shown in the grid from #005 — verify accuracy after CRUD operations
+- [x] Stats update immediately after adding, editing, or deleting cards (server-side render, no stale cache)
 
 ## Design Reference
 - **Layout**: § Home (`/`) — header area with card count

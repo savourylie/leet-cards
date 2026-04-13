@@ -18,3 +18,47 @@ export function getDifficultyBadgeClass(difficulty: string) {
       return "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300";
   }
 }
+
+const relativeTimeFormatter = new Intl.RelativeTimeFormat("en", {
+  numeric: "auto",
+});
+
+const relativeTimeUnits = [
+  { unit: "year", seconds: 60 * 60 * 24 * 365 },
+  { unit: "month", seconds: 60 * 60 * 24 * 30 },
+  { unit: "week", seconds: 60 * 60 * 24 * 7 },
+  { unit: "day", seconds: 60 * 60 * 24 },
+  { unit: "hour", seconds: 60 * 60 },
+  { unit: "minute", seconds: 60 },
+] satisfies Array<{ unit: Intl.RelativeTimeFormatUnit; seconds: number }>;
+
+export function formatRelativeReviewTime(
+  lastReviewed: string | null,
+  options?: {
+    emptyLabel?: string;
+  },
+) {
+  if (!lastReviewed) {
+    return options?.emptyLabel ?? "Never reviewed";
+  }
+
+  const timestamp = new Date(lastReviewed).getTime();
+
+  if (Number.isNaN(timestamp)) {
+    return "Review date unavailable";
+  }
+
+  const diffSeconds = Math.round((timestamp - Date.now()) / 1000);
+
+  if (Math.abs(diffSeconds) < 60) {
+    return "Just now";
+  }
+
+  for (const { unit, seconds } of relativeTimeUnits) {
+    if (Math.abs(diffSeconds) >= seconds || unit === "minute") {
+      return relativeTimeFormatter.format(Math.round(diffSeconds / seconds), unit);
+    }
+  }
+
+  return "Just now";
+}

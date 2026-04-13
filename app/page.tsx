@@ -5,6 +5,7 @@ import {
   normalizeCardSort,
   normalizeDifficultyFilter,
 } from "@/lib/card-controls";
+import { formatRelativeReviewTime } from "@/lib/card-display";
 import { CardFilter } from "@/components/card-filter";
 import { createDB } from "@/db";
 
@@ -39,17 +40,50 @@ export default async function Home({ searchParams }: HomeProps) {
   }
 
   const cards = data ?? [];
+  let neverReviewedCount = 0;
+  let hasReviewedCards = false;
+  let latestReviewedAt: string | null = null;
+  let latestReviewedTimestamp = Number.NEGATIVE_INFINITY;
+
+  for (const card of cards) {
+    if (card.last_reviewed === null) {
+      neverReviewedCount += 1;
+      continue;
+    }
+
+    hasReviewedCards = true;
+
+    const reviewedTimestamp = new Date(card.last_reviewed).getTime();
+    if (
+      !Number.isNaN(reviewedTimestamp) &&
+      reviewedTimestamp > latestReviewedTimestamp
+    ) {
+      latestReviewedTimestamp = reviewedTimestamp;
+      latestReviewedAt = card.last_reviewed;
+    }
+  }
+
+  const latestReviewLabel = !hasReviewedCards
+    ? "No reviews yet"
+    : latestReviewedAt === null
+      ? "Last reviewed date unavailable"
+      : `Last reviewed ${formatRelativeReviewTime(latestReviewedAt)}`;
+  const statsSummary = [
+    formatCardCount(cards.length),
+    `${neverReviewedCount} new`,
+    latestReviewLabel,
+  ].join(" · ");
 
   return (
     <div className="space-y-6 py-4">
-      <header className="flex flex-wrap items-end justify-between gap-3">
+      <header className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between sm:gap-3">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">
             LeetCode Flashcards
           </h1>
         </div>
-        <p className="text-sm text-muted-foreground">
-          {formatCardCount(cards.length)}
+        <p className="text-sm text-muted-foreground sm:text-right">
+          {statsSummary}
         </p>
       </header>
 
