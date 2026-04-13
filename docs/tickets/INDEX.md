@@ -7,10 +7,10 @@
 
 | Status        | Count |
 | ------------- | ----- |
-| ✅ Done        | 9     |
+| ✅ Done        | 10    |
 | 🔧 In Progress | 0     |
 | 📋 Pending     | 1     |
-| 🚫 Blocked     | 5     |
+| 🚫 Blocked     | 4     |
 | ⏸️ Deferred    | 0     |
 
 ---
@@ -40,8 +40,8 @@
 
 | #   | Ticket                                                                                     | Status    | Depends On | Notes |
 | --- | ------------------------------------------------------------------------------------------ | --------- | ---------- | ----- |
-| 010 | [Admin — JSON Paste & Card Creation](./010-admin-json-paste-and-card-creation.md)          | `pending` | #009 ✅     |       |
-| 011 | [Admin — Edit & Delete Cards](./011-admin-edit-and-delete.md)                              | `blocked` | #010       |       |
+| 010 | [Admin — JSON Paste & Card Creation](./010-admin-json-paste-and-card-creation.md)          | `done`    | #009 ✅     | Implemented |
+| 011 | [Admin — Edit & Delete Cards](./011-admin-edit-and-delete.md)                              | `pending` | #010 ✅     | Unblocked — #010 now done |
 | 012 | [**TEST: Checkpoint 2 — Full CRUD Operations**](./012-test-checkpoint-2-full-crud.md)      | `blocked` | #011       | Gate: Phase 3 |
 
 ## Phase 4 — Polish & QA

@@ -1,10 +1,10 @@
 # [TICKET-011] Admin — Edit & Delete Cards
 
 ## Status
-`blocked`
+`pending`
 
 ## Dependencies
-- Requires: #010
+- Requires: #010 ✅
 
 ## Description
 Add card management to the admin page: a list of all existing cards with edit and delete actions. Edit opens a dialog pre-filled with the card's current data as editable form fields. Delete shows a confirmation dialog before removal. Both actions use Server Actions and provide toast feedback.
