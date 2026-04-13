@@ -1,7 +1,7 @@
 # [TICKET-006] Card Filter & Sort Controls
 
 ## Status
-`blocked`
+`done`
 
 ## Dependencies
 - Requires: #005
@@ -10,12 +10,12 @@
 Add client-side filtering by difficulty and sorting by last reviewed date or problem number to the home page card grid. This is a Client Component that manages filter/sort state and re-renders the grid accordingly. Filtering and sorting happen client-side since the dataset is small (personal use, likely < 200 cards).
 
 ## Acceptance Criteria
-- [ ] A filter bar appears above the card grid with toggle buttons: All, Easy, Medium, Hard
-- [ ] Clicking a difficulty filter shows only cards of that difficulty; "All" shows everything
-- [ ] A sort dropdown offers at least two options: "Recently reviewed" and "Problem number"
-- [ ] Filtering and sorting are instant (client-side, no loading states)
-- [ ] Active filter button has a visually distinct selected state
-- [ ] Filter and sort state are reflected in the URL query params (optional but nice for shareability)
+- [x] A filter bar appears above the card grid with toggle buttons: All, Easy, Medium, Hard
+- [x] Clicking a difficulty filter shows only cards of that difficulty; "All" shows everything
+- [x] A sort dropdown offers at least two options: "Recently reviewed" and "Problem number"
+- [x] Filtering and sorting are instant (client-side, no loading states)
+- [x] Active filter button has a visually distinct selected state
+- [x] Filter and sort state are reflected in the URL query params (optional but nice for shareability)
 
 ## Design Reference
 - **Layout**: § Home (`/`) — `[All] [Easy] [Medium] [Hard]  Sort: [Recent]` bar

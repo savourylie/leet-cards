@@ -1,14 +1,32 @@
 import { connection } from "next/server";
 
-import { CardGrid } from "@/components/card-grid";
+import {
+  getFirstSearchParam,
+  normalizeCardSort,
+  normalizeDifficultyFilter,
+} from "@/lib/card-controls";
+import { CardFilter } from "@/components/card-filter";
 import { createDB } from "@/db";
 
 function formatCardCount(count: number) {
   return `[${count} card${count === 1 ? "" : "s"}]`;
 }
 
-export default async function Home() {
+type HomeProps = {
+  searchParams?: Promise<{
+    difficulty?: string | string[];
+    sort?: string | string[];
+  }>;
+};
+
+export default async function Home({ searchParams }: HomeProps) {
   await connection();
+
+  const params = searchParams ? await searchParams : undefined;
+  const initialDifficulty = normalizeDifficultyFilter(
+    getFirstSearchParam(params?.difficulty),
+  );
+  const initialSort = normalizeCardSort(getFirstSearchParam(params?.sort));
 
   const db = createDB();
   const { data, error } = await db
@@ -44,7 +62,11 @@ export default async function Home() {
           </p>
         </section>
       ) : (
-        <CardGrid cards={cards} />
+        <CardFilter
+          cards={cards}
+          initialDifficulty={initialDifficulty}
+          initialSort={initialSort}
+        />
       )}
     </div>
   );
