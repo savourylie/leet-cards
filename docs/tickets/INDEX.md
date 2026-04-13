@@ -7,10 +7,10 @@
 
 | Status        | Count |
 | ------------- | ----- |
-| ✅ Done        | 11    |
+| ✅ Done        | 12    |
 | 🔧 In Progress | 0     |
-| 📋 Pending     | 1     |
-| 🚫 Blocked     | 3     |
+| 📋 Pending     | 2     |
+| 🚫 Blocked     | 1     |
 | ⏸️ Deferred    | 0     |
 
 ---
@@ -42,14 +42,14 @@
 | --- | ------------------------------------------------------------------------------------------ | --------- | ---------- | ----- |
 | 010 | [Admin — JSON Paste & Card Creation](./010-admin-json-paste-and-card-creation.md)          | `done`    | #009 ✅     | Implemented |
 | 011 | [Admin — Edit & Delete Cards](./011-admin-edit-and-delete.md)                              | `done`    | #010 ✅     | Implemented |
-| 012 | [**TEST: Checkpoint 2 — Full CRUD Operations**](./012-test-checkpoint-2-full-crud.md)      | `pending` | #011 ✅     | Unblocked — #011 now done |
+| 012 | [**TEST: Checkpoint 2 — Full CRUD Operations**](./012-test-checkpoint-2-full-crud.md)      | `done`    | #011 ✅     | Checkpoint passed |
 
 ## Phase 4 — Polish & QA
 
 | #   | Ticket                                                                                  | Status    | Depends On   | Notes |
 | --- | --------------------------------------------------------------------------------------- | --------- | ------------ | ----- |
-| 013 | [Quick Stats Display](./013-quick-stats-display.md)                                     | `blocked` | #012         |       |
-| 014 | [Touch Gestures & Accessibility](./014-touch-gestures-and-accessibility.md)              | `blocked` | #012         |       |
+| 013 | [Quick Stats Display](./013-quick-stats-display.md)                                     | `pending` | #012 ✅      | Unblocked |
+| 014 | [Touch Gestures & Accessibility](./014-touch-gestures-and-accessibility.md)              | `pending` | #012 ✅      | Unblocked |
 | 015 | [**TEST: Final Checkpoint — End-to-End**](./015-test-final-checkpoint.md)                | `blocked` | #013, #014   | Gate: Final |
 
 ---

@@ -64,7 +64,7 @@ function toEditFormState(card: Card): EditFormState {
     num: String(card.num),
     title: card.title,
     difficulty: card.difficulty as CardInput['difficulty'],
-    tags: card.tags.join(', '),
+    tags: formatList(card.tags),
     key_points: formatList(card.key_points),
     complexity: card.complexity,
     follow_ups: formatList(card.follow_ups),
@@ -79,19 +79,12 @@ function splitLines(value: string) {
     .filter(Boolean)
 }
 
-function splitCommaSeparated(value: string) {
-  return value
-    .split(',')
-    .map((item) => item.trim())
-    .filter(Boolean)
-}
-
 function toCardInput(form: EditFormState): CardInput {
   return {
     num: Number(form.num),
     title: form.title.trim(),
     difficulty: form.difficulty,
-    tags: splitCommaSeparated(form.tags),
+    tags: splitLines(form.tags),
     key_points: splitLines(form.key_points),
     complexity: form.complexity.trim(),
     follow_ups: splitLines(form.follow_ups),
@@ -296,10 +289,11 @@ export function AdminCardManager({ cards }: AdminCardManagerProps) {
 
               <label className="grid gap-2 text-sm font-medium">
                 <span>Tags</span>
-                <Input
+                <Textarea
                   value={formState.tags}
                   onChange={(event) => updateField('tags', event.target.value)}
-                  placeholder="array, hash-table, sliding-window"
+                  className="min-h-28"
+                  placeholder={'hash-table\ndesign\nsliding-window'}
                   disabled={isSaving}
                 />
               </label>
