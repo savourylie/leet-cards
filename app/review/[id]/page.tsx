@@ -1,37 +1,46 @@
-import Link from "next/link";
+import { notFound } from "next/navigation";
+import { connection } from "next/server";
 
-type ReviewCardPlaceholderPageProps = {
+import { createDB } from "@/db";
+import { ReviewNavigator } from "@/components/review-navigator";
+
+type ReviewCardPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function ReviewCardPlaceholderPage({
+export default async function ReviewCardPage({
   params,
-}: ReviewCardPlaceholderPageProps) {
+}: ReviewCardPageProps) {
+  await connection();
+
   const { id } = await params;
+  const cardId = parseInt(id, 10);
 
-  return (
-    <div className="space-y-6 py-4">
-      <Link
-        href="/"
-        className="inline-flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-      >
-        ← Back
-      </Link>
+  if (isNaN(cardId)) {
+    notFound();
+  }
 
-      <section className="rounded-xl border bg-card px-6 py-8 text-card-foreground">
-        <p className="text-sm text-muted-foreground">Review mode</p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight">
-          Coming in ticket 008
-        </h1>
-        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          This temporary route exists so the home page card grid can navigate to
-          a valid destination before the full review experience is implemented.
-        </p>
-        <p className="mt-6 text-sm text-muted-foreground">
-          Selected card ID:{" "}
-          <span className="font-mono text-foreground">{id}</span>
-        </p>
-      </section>
-    </div>
-  );
+  const db = createDB();
+  const { data, error } = await db
+    .from("cards")
+    .select("*")
+    .order("num", { ascending: true });
+
+  if (error) {
+    throw new Error(`Failed to load cards: ${error.message}`);
+  }
+
+  const cards = data ?? [];
+  const startIndex = cards.findIndex((c) => c.id === cardId);
+
+  if (startIndex === -1) {
+    notFound();
+  }
+
+  const orderedCards = [
+    ...cards.slice(startIndex),
+    ...cards.slice(0, startIndex),
+  ];
+
+  return <ReviewNavigator cards={orderedCards} />;
 }
