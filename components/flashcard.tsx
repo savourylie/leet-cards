@@ -2,6 +2,7 @@
 
 import type { KeyboardEvent, ReactNode } from "react";
 import { useState } from "react";
+import { Trash2 } from "lucide-react";
 
 import type { CardInput } from "@/lib/types";
 import { getDifficultyBadgeClass, getDifficultyLabel } from "@/lib/card-display";
@@ -12,6 +13,7 @@ type FlashcardProps = {
   card: CardInput;
   className?: string;
   onFlip?: (isFlipped: boolean) => void;
+  onDelete?: () => void;
 };
 
 type FlashcardFaceProps = {
@@ -86,7 +88,7 @@ function FlashcardList({ items }: { items: string[] }) {
   );
 }
 
-export function Flashcard({ card, className, onFlip }: FlashcardProps) {
+export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [flipStateAnnouncement, setFlipStateAnnouncement] = useState("");
 
@@ -158,6 +160,24 @@ export function Flashcard({ card, className, onFlip }: FlashcardProps) {
           onFlip={handleFlip}
           className="[transform:rotateY(180deg)] overflow-y-auto px-6 py-6 sm:px-8"
         >
+          {onDelete && (
+            <button
+              type="button"
+              aria-label="Delete card"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.stopPropagation();
+                }
+              }}
+              className="absolute top-3 right-3 rounded-md p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <Trash2 className="h-4 w-4" />
+            </button>
+          )}
           <div className="space-y-6">
             <FlashcardSection label="Key Points">
               <FlashcardList items={card.key_points} />
