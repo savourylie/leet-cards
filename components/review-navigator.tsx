@@ -3,9 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import type { Card, CardInput } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { deleteCard } from "@/app/admin/actions";
 import { updateLastReviewed } from "@/app/review/actions";
 import { Button } from "@/components/ui/button";
 import { Flashcard } from "@/components/flashcard";
@@ -86,6 +88,21 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
     }
   }
 
+  async function handleDelete() {
+    const result = await deleteCard(currentCard.id)
+    if (result.error) {
+      toast.error(result.error)
+      return
+    }
+    toast.success(`Deleted: #${currentCard.num} ${currentCard.title}`)
+    if (total > 1) {
+      const nextIndex = currentIndex < total - 1 ? currentIndex : currentIndex - 1
+      router.push(`/review/${cards[nextIndex].id}`)
+    } else {
+      router.push('/')
+    }
+  }
+
   function handleTouchStart(e: React.TouchEvent) {
     if (e.touches.length === 1) {
       touchStartX.current = e.touches[0].clientX;
@@ -144,6 +161,7 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
         <Flashcard
           card={currentCard as unknown as CardInput}
           onFlip={handleFlip}
+          onDelete={handleDelete}
         />
       </div>
 
