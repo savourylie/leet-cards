@@ -7,6 +7,7 @@ import {
   normalizeDifficultyFilter,
 } from "@/lib/card-controls";
 import { formatRelativeReviewTime } from "@/lib/card-display";
+import { AddCardDialog } from "@/components/add-card-dialog";
 import { CardFilter } from "@/components/card-filter";
 import { createDB } from "@/db";
 
@@ -77,15 +78,14 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <div className="space-y-6 py-4">
-      <header className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between sm:gap-3">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            LeetCode Flashcards
-          </h1>
+      <header className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+        <h1 className="text-2xl font-semibold tracking-tight">
+          LeetCode Flashcards
+        </h1>
+        <div className="flex flex-col items-start gap-1 sm:items-end">
+          <AddCardDialog />
+          <p className="text-sm text-muted-foreground">{statsSummary}</p>
         </div>
-        <p className="text-sm text-muted-foreground sm:text-right">
-          {statsSummary}
-        </p>
       </header>
 
       {cards.length === 0 ? (

@@ -14,7 +14,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
-export function JsonPasteForm() {
+export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
   const router = useRouter()
   const [jsonStr, setJsonStr] = useState('')
   const [parsedData, setParsedData] = useState<CardInput | null>(null)
@@ -66,6 +66,7 @@ export function JsonPasteForm() {
         setJsonStr('')
         setParsedData(null)
         router.refresh()
+        onSuccess?.()
       }
     } catch {
       toast.error('An unexpected error occurred')
