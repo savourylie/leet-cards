@@ -96,7 +96,7 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
     }
     toast.success(`Deleted: #${currentCard.num} ${currentCard.title}`)
     if (total > 1) {
-      const nextIndex = currentIndex < total - 1 ? currentIndex : currentIndex - 1
+      const nextIndex = currentIndex < total - 1 ? currentIndex + 1 : currentIndex - 1
       router.push(`/review/${cards[nextIndex].id}`)
     } else {
       router.push('/')
