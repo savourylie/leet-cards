@@ -4,6 +4,8 @@ export type Card = {
   title: string
   difficulty: string
   tags: string[]
+  description: string
+  example: string
   key_points: string[]
   complexity: string
   follow_ups: string[]

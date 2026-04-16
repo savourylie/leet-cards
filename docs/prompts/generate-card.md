@@ -20,19 +20,21 @@ The object must conform exactly to this schema:
 
 ```
 {
-  num:        integer >= 1
-  title:      non-empty string
-  difficulty: "easy" | "medium" | "hard"
-  tags:       string[]   (default: [])
-  key_points: string[]   (default: [])
-  complexity: string     (default: "")
-  follow_ups: string[]   (default: [])
-  gotchas:    string[]   (default: [])
+  num:         integer >= 1
+  title:       non-empty string
+  difficulty:  "easy" | "medium" | "hard"
+  tags:        string[]   (default: [])
+  description: string     (default: "")
+  example:     string     (default: "")
+  key_points:  string[]   (default: [])
+  complexity:  string     (default: "")
+  follow_ups:  string[]   (default: [])
+  gotchas:     string[]   (default: [])
 }
 ```
 
 Rules:
-- All eight fields must be present. Optional fields may be empty (`[]` or `""`) only when the conversation genuinely provides nothing for them.
+- All ten fields must be present. Optional fields may be empty (`[]` or `""`) only when the conversation genuinely provides nothing for them.
 - No additional fields. No `null` values. No nested objects. Arrays contain strings only.
 - Values are plain text — no markdown, no HTML, no LaTeX, no backtick code fences inside strings.
 - Use UTF-8 characters directly for CJK (e.g. `"用 HashMap"`), not escaped `\u` sequences.
@@ -46,6 +48,17 @@ Rules:
 **`difficulty`** — lowercase only. Take it from the conversation if stated. Otherwise infer from the techniques discussed: basic hash/array manipulation → `easy`; two-pointer, BFS/DFS, medium DP, classic design → `medium`; hard DP, advanced graph, intricate data structure or proof → `hard`. When unsure, lean toward `medium`.
 
 **`tags`** — 2–5 lowercase, hyphenated tags drawn from LeetCode's own categories. Common examples: `array`, `string`, `hash-table`, `two-pointer`, `sliding-window`, `binary-search`, `stack`, `queue`, `linked-list`, `tree`, `bst`, `graph`, `bfs`, `dfs`, `dp`, `greedy`, `backtracking`, `heap`, `trie`, `design`, `matrix`, `bit-manipulation`, `math`, `sorting`, `recursion`, `divide-and-conquer`, `union-find`, `topological-sort`, `segment-tree`, `monotonic-stack`. Do not invent project-specific tags.
+
+**`description`** — 1–2 sentences of plain-language problem statement (English), enough for the reader to recognize what the problem asks without flipping the card. Paraphrase the original LeetCode prompt; do not copy it verbatim if the conversation contains a partial statement only. Examples:
+- `"Given an array of integers nums and a target, return indices of the two numbers that add up to target."`
+- `"Design a cache with O(1) get and put that evicts the least-recently-used key when capacity is exceeded."`
+
+Empty string only if the conversation never describes what the problem is asking.
+
+**`example`** — a single representative example input/output block, copied or adapted from the conversation. Use `\n` for line breaks inside the JSON string. Keep it short — one example is plenty. Format like LeetCode: `Input:` / `Output:` labels, or just `Input: …\nOutput: …`. Example value:
+- `"Input: nums = [2,7,11,15], target = 9\nOutput: [0,1]"`
+
+Empty string if the conversation provides no example. Do not fabricate inputs the conversation never discussed.
 
 **`key_points`** — 3–5 strings. Each is a **recall trigger**, not a summary. Action-oriented, concrete, bilingual where it helps the point land.
 - Good: `"用 HashMap 存 value → index，one-pass 掃"`
@@ -116,6 +129,8 @@ If a field's content is not supported by the conversation, leave it empty rather
   "title": "Two Sum",
   "difficulty": "easy",
   "tags": ["array", "hash-table"],
+  "description": "Given an array of integers nums and a target, return indices of the two numbers that add up to target.",
+  "example": "Input: nums = [2,7,11,15], target = 9\nOutput: [0,1]",
   "key_points": [
     "用 HashMap 存 value → index，one-pass 掃過 array",
     "對每個 x 查 target - x 在 map 裡沒",

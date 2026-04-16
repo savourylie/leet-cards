@@ -5,6 +5,8 @@ export const cardSchema = z.object({
   title: z.string().min(1),
   difficulty: z.enum(['easy', 'medium', 'hard']),
   tags: z.array(z.string()).default([]),
+  description: z.string().default(''),
+  example: z.string().default(''),
   key_points: z.array(z.string()).default([]),
   complexity: z.string().default(''),
   follow_ups: z.array(z.string()).default([]),

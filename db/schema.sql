@@ -1,4 +1,8 @@
 -- Run this in the Supabase SQL Editor to create the cards table.
+--
+-- Migration for existing databases (run once):
+--   ALTER TABLE cards ADD COLUMN description TEXT DEFAULT '';
+--   ALTER TABLE cards ADD COLUMN example TEXT DEFAULT '';
 
 CREATE TABLE cards (
   id SERIAL PRIMARY KEY,
@@ -6,6 +10,8 @@ CREATE TABLE cards (
   title VARCHAR(255) NOT NULL,
   difficulty VARCHAR(10) DEFAULT 'medium',
   tags TEXT[] DEFAULT '{}',
+  description TEXT DEFAULT '',
+  example TEXT DEFAULT '',
   key_points JSONB DEFAULT '[]',
   complexity VARCHAR(255) DEFAULT '',
   follow_ups JSONB DEFAULT '[]',

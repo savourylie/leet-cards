@@ -9,6 +9,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card as SurfaceCard, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LeetCodeLinkButton } from "@/components/leetcode-link-button";
 
 type CardGridProps = {
   cards: Card[];
@@ -30,10 +31,18 @@ export function CardGrid({ cards }: CardGridProps) {
               <CardHeader className="gap-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-sm text-muted-foreground">#{card.num}</p>
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <span>#{card.num}</span>
+                      <LeetCodeLinkButton title={card.title} />
+                    </div>
                     <CardTitle className="mt-1 line-clamp-2 text-[18px] font-semibold leading-snug">
                       {card.title}
                     </CardTitle>
+                    {card.description ? (
+                      <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
+                        {card.description}
+                      </p>
+                    ) : null}
                   </div>
                   <Badge className={cn("shrink-0 capitalize", getDifficultyBadgeClass(card.difficulty))}>
                     {getDifficultyLabel(card.difficulty)}

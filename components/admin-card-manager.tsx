@@ -47,6 +47,8 @@ type EditFormState = {
   title: string
   difficulty: CardInput['difficulty']
   tags: string
+  description: string
+  example: string
   key_points: string
   complexity: string
   follow_ups: string
@@ -65,6 +67,8 @@ function toEditFormState(card: Card): EditFormState {
     title: card.title,
     difficulty: card.difficulty as CardInput['difficulty'],
     tags: formatList(card.tags),
+    description: card.description ?? '',
+    example: card.example ?? '',
     key_points: formatList(card.key_points),
     complexity: card.complexity,
     follow_ups: formatList(card.follow_ups),
@@ -85,6 +89,8 @@ function toCardInput(form: EditFormState): CardInput {
     title: form.title.trim(),
     difficulty: form.difficulty,
     tags: splitLines(form.tags),
+    description: form.description.trim(),
+    example: form.example,
     key_points: splitLines(form.key_points),
     complexity: form.complexity.trim(),
     follow_ups: splitLines(form.follow_ups),
@@ -294,6 +300,28 @@ export function AdminCardManager({ cards }: AdminCardManagerProps) {
                   onChange={(event) => updateField('tags', event.target.value)}
                   className="min-h-28"
                   placeholder={'hash-table\ndesign\nsliding-window'}
+                  disabled={isSaving}
+                />
+              </label>
+
+              <label className="grid gap-2 text-sm font-medium">
+                <span>Description</span>
+                <Textarea
+                  value={formState.description}
+                  onChange={(event) => updateField('description', event.target.value)}
+                  className="min-h-20"
+                  placeholder="1–2 sentence summary of what the problem asks."
+                  disabled={isSaving}
+                />
+              </label>
+
+              <label className="grid gap-2 text-sm font-medium">
+                <span>Example</span>
+                <Textarea
+                  value={formState.example}
+                  onChange={(event) => updateField('example', event.target.value)}
+                  className="min-h-28 font-mono text-xs"
+                  placeholder={'Input: nums = [2,7,11,15], target = 9\nOutput: [0,1]'}
                   disabled={isSaving}
                 />
               </label>

@@ -103,7 +103,7 @@ export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-muted-foreground font-mono">#{parsedData.num}</span>
               <span className="font-semibold">{parsedData.title}</span>
-              <Badge 
+              <Badge
                 variant="secondary"
                 className={cn(
                   parsedData.difficulty === 'easy' && 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300',
@@ -114,8 +114,14 @@ export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
                 {parsedData.difficulty}
               </Badge>
             </div>
+            {parsedData.description && (
+              <p className="text-sm text-muted-foreground line-clamp-2">
+                {parsedData.description}
+              </p>
+            )}
             <div className="text-sm text-muted-foreground">
               {parsedData.key_points.length} key points &middot; {parsedData.follow_ups.length} follow-ups &middot; {parsedData.gotchas.length} gotchas
+              {parsedData.example && <> &middot; has example</>}
             </div>
           </CardContent>
         </Card>

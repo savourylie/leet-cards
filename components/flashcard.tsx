@@ -8,6 +8,7 @@ import type { CardInput } from "@/lib/types";
 import { getDifficultyBadgeClass, getDifficultyLabel } from "@/lib/card-display";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { LeetCodeLinkButton } from "@/components/leetcode-link-button";
 
 type FlashcardProps = {
   card: CardInput;
@@ -118,39 +119,54 @@ export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps)
           buttonLabel="Flip card to study content"
           isVisible={!isFlipped}
           onFlip={handleFlip}
-          className="justify-center px-6 py-8 text-center sm:px-8"
+          className="overflow-y-auto px-6 py-8 text-center sm:px-8"
         >
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <p className="text-sm text-muted-foreground">#{card.num}</p>
-              <h2 className="text-[18px] font-semibold leading-snug break-words [overflow-wrap:anywhere]">
-                {card.title}
-              </h2>
-              <div className="flex justify-center">
-                <Badge
-                  className={cn(
-                    "shrink-0 capitalize",
-                    getDifficultyBadgeClass(card.difficulty),
-                  )}
-                >
-                  {getDifficultyLabel(card.difficulty)}
-                </Badge>
-              </div>
-            </div>
-            {card.tags.length > 0 ? (
-              <div className="flex flex-wrap justify-center gap-2">
-                {card.tags.map((tag) => (
+          <div className="flex min-h-full flex-col justify-center">
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
+                  <span>#{card.num}</span>
+                  <LeetCodeLinkButton title={card.title} />
+                </div>
+                <h2 className="text-[18px] font-semibold leading-snug break-words [overflow-wrap:anywhere]">
+                  {card.title}
+                </h2>
+                <div className="flex justify-center">
                   <Badge
-                    key={tag}
-                    className="bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                    className={cn(
+                      "shrink-0 capitalize",
+                      getDifficultyBadgeClass(card.difficulty),
+                    )}
                   >
-                    {tag}
+                    {getDifficultyLabel(card.difficulty)}
                   </Badge>
-                ))}
+                </div>
               </div>
-            ) : null}
+              {card.tags.length > 0 ? (
+                <div className="flex flex-wrap justify-center gap-2">
+                  {card.tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      className="bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              ) : null}
+              {card.description ? (
+                <p className="text-[14px] leading-[1.6] text-muted-foreground break-words [overflow-wrap:anywhere]">
+                  {card.description}
+                </p>
+              ) : null}
+              {card.example ? (
+                <pre className="rounded-md bg-muted px-4 py-3 text-left font-mono text-[12px] leading-[1.5] whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                  {card.example}
+                </pre>
+              ) : null}
 
-            <p className="text-sm text-muted-foreground">Click to flip</p>
+              <p className="text-sm text-muted-foreground">Click to flip</p>
+            </div>
           </div>
         </FlashcardFace>
 

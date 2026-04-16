@@ -16,6 +16,10 @@ const sampleCards = [
     title: 'Design HashMap',
     difficulty: 'easy',
     tags: ['hash-table', 'design'],
+    description:
+      'Design a HashMap from scratch (no built-in hash table libraries). Support put(key, value), get(key), and remove(key).',
+    example:
+      'Input:\n["MyHashMap","put","put","get","get","put","get","remove","get"]\n[[],[1,1],[2,2],[1],[3],[2,1],[2],[2],[2]]\n\nOutput:\n[null,null,null,1,-1,null,1,null,-1]',
     key_points: [
       '用固定大小的 array + hash function（key % size）',
       'Collision handling 用 chaining：每個 bucket 存 list of (key, value) tuples',
@@ -36,6 +40,10 @@ const sampleCards = [
     title: 'LRU Cache',
     difficulty: 'medium',
     tags: ['hash-table', 'linked-list', 'design'],
+    description:
+      'Design a cache with O(1) get and put that evicts the least-recently-used key when it exceeds its capacity.',
+    example:
+      'Input:\n["LRUCache","put","put","get","put","get","put","get","get","get"]\n[[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]\n\nOutput:\n[null,null,null,1,null,-1,null,-1,3,4]',
     key_points: [
       'HashMap + Doubly Linked List 組合',
       'HashMap 存 key → node reference，O(1) lookup',
@@ -56,6 +64,10 @@ const sampleCards = [
     title: 'Number of Islands',
     difficulty: 'medium',
     tags: ['graph', 'bfs', 'dfs', 'matrix'],
+    description:
+      'Given an m×n 2D grid of "1" (land) and "0" (water), count the number of islands — groups of land connected 4-directionally.',
+    example:
+      'Input:\ngrid = [\n  ["1","1","0","0","0"],\n  ["1","1","0","0","0"],\n  ["0","0","1","0","0"],\n  ["0","0","0","1","1"]\n]\n\nOutput: 3',
     key_points: [
       '遍歷 grid，遇到 "1" 就 BFS/DFS 把整座島標記為 visited',
       '每次啟動新的 BFS/DFS 代表發現一座新島',
