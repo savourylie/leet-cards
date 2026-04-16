@@ -5,9 +5,8 @@ import { useState } from "react";
 import { Trash2 } from "lucide-react";
 
 import type { CardInput } from "@/lib/types";
-import { getDifficultyBadgeClass, getDifficultyLabel } from "@/lib/card-display";
+import { getDifficultyEyebrowClass, getDifficultyLabel } from "@/lib/card-display";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { LeetCodeLinkButton } from "@/components/leetcode-link-button";
 
 type FlashcardProps = {
@@ -65,22 +64,22 @@ function FlashcardFace({
 
 function FlashcardSection({ label, children }: FlashcardSectionProps) {
   return (
-    <section className="space-y-2">
-      <h3 className="text-[12px] font-medium uppercase tracking-[0.5px] text-muted-foreground">
+    <div className="flex flex-col gap-3">
+      <h3 className="text-[11px] font-normal lowercase tracking-[0.01em] text-muted-foreground">
         {label}
       </h3>
       {children}
-    </section>
+    </div>
   );
 }
 
 function FlashcardList({ items }: { items: string[] }) {
   return (
-    <ul className="space-y-2 pl-5 text-[14px] leading-[1.6]">
+    <ul className="flex flex-col gap-2.5 pl-4 text-[15px] leading-[1.7] text-foreground [list-style:disc] marker:text-muted-foreground/50">
       {items.map((item, index) => (
         <li
           key={index}
-          className="break-words [overflow-wrap:anywhere]"
+          className="break-words [overflow-wrap:anywhere] pl-1"
         >
           {item}
         </li>
@@ -119,53 +118,56 @@ export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps)
           buttonLabel="Flip card to study content"
           isVisible={!isFlipped}
           onFlip={handleFlip}
-          className="overflow-y-auto px-6 py-8 text-center sm:px-8"
+          className="overflow-y-auto px-8 py-10 sm:px-10 sm:py-12"
         >
-          <div className="flex min-h-full flex-col justify-center">
-            <div className="space-y-6">
-              <div className="space-y-3">
-                <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-                  <span>#{card.num}</span>
+          <div className="mx-auto flex min-h-full w-full max-w-[52ch] flex-col justify-center">
+            <div className="flex flex-col gap-7">
+              <header className="flex flex-col gap-3">
+                <div className="flex items-center gap-1.5 text-[12px] font-medium tracking-[0.02em] text-muted-foreground">
+                  <span className="tabular-nums">#{card.num}</span>
                   <LeetCodeLinkButton title={card.title} />
                 </div>
-                <h2 className="text-[18px] font-semibold leading-snug break-words [overflow-wrap:anywhere]">
+                <h2 className="text-[28px] font-semibold leading-[1.15] tracking-[-0.02em] text-foreground break-words [overflow-wrap:anywhere]">
                   {card.title}
                 </h2>
-                <div className="flex justify-center">
-                  <Badge
-                    className={cn(
-                      "shrink-0 capitalize",
-                      getDifficultyBadgeClass(card.difficulty),
-                    )}
-                  >
-                    {getDifficultyLabel(card.difficulty)}
-                  </Badge>
+                <div
+                  className={cn(
+                    "text-[11px] font-medium uppercase tracking-[0.08em]",
+                    getDifficultyEyebrowClass(card.difficulty),
+                  )}
+                >
+                  {getDifficultyLabel(card.difficulty)}
                 </div>
-              </div>
+              </header>
+
               {card.tags.length > 0 ? (
-                <div className="flex flex-wrap justify-center gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {card.tags.map((tag) => (
-                    <Badge
+                    <span
                       key={tag}
-                      className="bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                      className="inline-flex items-center rounded-full bg-muted/70 px-2 py-0.5 text-[11px] font-medium text-muted-foreground"
                     >
                       {tag}
-                    </Badge>
+                    </span>
                   ))}
                 </div>
               ) : null}
+
               {card.description ? (
-                <p className="text-[14px] leading-[1.6] text-muted-foreground break-words [overflow-wrap:anywhere]">
+                <p className="text-[15px] leading-[1.65] text-foreground/80 break-words [overflow-wrap:anywhere]">
                   {card.description}
                 </p>
               ) : null}
+
               {card.example ? (
-                <pre className="rounded-md bg-muted px-4 py-3 text-left font-mono text-[12px] leading-[1.5] whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                <pre className="rounded-lg border border-border/60 bg-muted/40 px-5 py-4 text-left font-mono text-[13px] leading-[1.7] text-foreground/90 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
                   {card.example}
                 </pre>
               ) : null}
 
-              <p className="text-sm text-muted-foreground">Click to flip</p>
+              <p className="pt-2 text-center text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">
+                Click to flip
+              </p>
             </div>
           </div>
         </FlashcardFace>
@@ -174,7 +176,7 @@ export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps)
           buttonLabel="Flip card back to problem summary"
           isVisible={isFlipped}
           onFlip={handleFlip}
-          className="[transform:rotateY(180deg)] overflow-y-auto px-6 py-6 sm:px-8"
+          className="[transform:rotateY(180deg)] overflow-y-auto px-8 py-10 sm:px-10 sm:py-12"
         >
           {onDelete && (
             <button
@@ -194,24 +196,39 @@ export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps)
               <Trash2 className="h-4 w-4" />
             </button>
           )}
-          <div className="space-y-6">
-            <FlashcardSection label="Key Points">
-              <FlashcardList items={card.key_points} />
-            </FlashcardSection>
-
-            <FlashcardSection label="Complexity">
-              <p className="text-[14px] leading-[1.6] break-words [overflow-wrap:anywhere]">
-                {card.complexity}
-              </p>
-            </FlashcardSection>
-
-            <FlashcardSection label="Follow-Up Questions">
-              <FlashcardList items={card.follow_ups} />
-            </FlashcardSection>
-
-            <FlashcardSection label="Gotchas">
-              <FlashcardList items={card.gotchas} />
-            </FlashcardSection>
+          <div className="mx-auto w-full max-w-[60ch]">
+            <div className="flex flex-col divide-y divide-border/50">
+              {card.key_points.length > 0 && (
+                <section className="py-7 first:pt-0 last:pb-0">
+                  <FlashcardSection label="key points">
+                    <FlashcardList items={card.key_points} />
+                  </FlashcardSection>
+                </section>
+              )}
+              {card.complexity && (
+                <section className="py-7 first:pt-0 last:pb-0">
+                  <FlashcardSection label="complexity">
+                    <div className="rounded-md border border-border/50 bg-muted/30 px-4 py-3 font-mono text-[14px] leading-[1.65] text-foreground tabular-nums break-words [overflow-wrap:anywhere]">
+                      {card.complexity}
+                    </div>
+                  </FlashcardSection>
+                </section>
+              )}
+              {card.follow_ups.length > 0 && (
+                <section className="py-7 first:pt-0 last:pb-0">
+                  <FlashcardSection label="follow-ups">
+                    <FlashcardList items={card.follow_ups} />
+                  </FlashcardSection>
+                </section>
+              )}
+              {card.gotchas.length > 0 && (
+                <section className="py-7 first:pt-0 last:pb-0">
+                  <FlashcardSection label="gotchas">
+                    <FlashcardList items={card.gotchas} />
+                  </FlashcardSection>
+                </section>
+              )}
+            </div>
           </div>
         </FlashcardFace>
       </div>

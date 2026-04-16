@@ -19,6 +19,19 @@ export function getDifficultyBadgeClass(difficulty: string) {
   }
 }
 
+export function getDifficultyEyebrowClass(difficulty: string) {
+  switch (difficulty.toLowerCase()) {
+    case "easy":
+      return "text-emerald-600 dark:text-emerald-400";
+    case "medium":
+      return "text-amber-600 dark:text-amber-400";
+    case "hard":
+      return "text-red-600 dark:text-red-400";
+    default:
+      return "text-muted-foreground";
+  }
+}
+
 const relativeTimeFormatter = new Intl.RelativeTimeFormat("en", {
   numeric: "auto",
 });
