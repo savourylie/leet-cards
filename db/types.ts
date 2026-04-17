@@ -10,6 +10,7 @@ export type Card = {
   complexity: string
   follow_ups: string[]
   gotchas: string[]
+  stumbles: string[]
   created_at: string
   last_reviewed: string | null
 }

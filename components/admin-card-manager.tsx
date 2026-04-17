@@ -53,6 +53,7 @@ type EditFormState = {
   complexity: string
   follow_ups: string
   gotchas: string
+  stumbles: string
 }
 
 const difficultyOptions: CardInput['difficulty'][] = ['easy', 'medium', 'hard']
@@ -73,6 +74,7 @@ function toEditFormState(card: Card): EditFormState {
     complexity: card.complexity,
     follow_ups: formatList(card.follow_ups),
     gotchas: formatList(card.gotchas),
+    stumbles: formatList(card.stumbles ?? []),
   }
 }
 
@@ -95,6 +97,7 @@ function toCardInput(form: EditFormState): CardInput {
     complexity: form.complexity.trim(),
     follow_ups: splitLines(form.follow_ups),
     gotchas: splitLines(form.gotchas),
+    stumbles: splitLines(form.stumbles),
   }
 }
 
@@ -361,6 +364,17 @@ export function AdminCardManager({ cards }: AdminCardManagerProps) {
                   value={formState.gotchas}
                   onChange={(event) => updateField('gotchas', event.target.value)}
                   className="min-h-28"
+                  disabled={isSaving}
+                />
+              </label>
+
+              <label className="grid gap-2 text-sm font-medium">
+                <span>Stumbles</span>
+                <Textarea
+                  value={formState.stumbles}
+                  onChange={(event) => updateField('stumbles', event.target.value)}
+                  className="min-h-28"
+                  placeholder="Where you personally tripped on this problem."
                   disabled={isSaving}
                 />
               </label>

@@ -11,6 +11,7 @@ export const cardSchema = z.object({
   complexity: z.string().default(''),
   follow_ups: z.array(z.string()).default([]),
   gotchas: z.array(z.string()).default([]),
+  stumbles: z.array(z.string()).default([]),
 })
 
 export type CardInput = z.infer<typeof cardSchema>

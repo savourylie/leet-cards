@@ -3,6 +3,7 @@
 -- Migration for existing databases (run once):
 --   ALTER TABLE cards ADD COLUMN description TEXT DEFAULT '';
 --   ALTER TABLE cards ADD COLUMN example TEXT DEFAULT '';
+--   ALTER TABLE cards ADD COLUMN stumbles JSONB DEFAULT '[]';
 
 CREATE TABLE cards (
   id SERIAL PRIMARY KEY,
@@ -16,6 +17,7 @@ CREATE TABLE cards (
   complexity VARCHAR(255) DEFAULT '',
   follow_ups JSONB DEFAULT '[]',
   gotchas JSONB DEFAULT '[]',
+  stumbles JSONB DEFAULT '[]',
   created_at TIMESTAMPTZ DEFAULT NOW(),
   last_reviewed TIMESTAMPTZ
 );

@@ -34,6 +34,7 @@ const sampleCards = [
       '不能用 Python dict — 那就是 hashmap 本身',
       'get / remove 要處理 key 不存在的 edge case',
     ],
+    stumbles: [],
   },
   {
     num: 146,
@@ -58,6 +59,7 @@ const sampleCards = [
       'put 時如果 key 已存在要更新 value 並 move to head',
       '容量滿時要先 evict tail 再 insert',
     ],
+    stumbles: [],
   },
   {
     num: 200,
@@ -82,6 +84,7 @@ const sampleCards = [
       '別忘了檢查 grid 邊界（row/col bounds）',
       'BFS 要在加入 queue 時就標記 visited，不是取出時',
     ],
+    stumbles: [],
   },
 ]
 

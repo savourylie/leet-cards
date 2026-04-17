@@ -98,7 +98,7 @@ export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps)
     onFlip?.(nextValue);
     setFlipStateAnnouncement(
       nextValue
-        ? "Card flipped to back — showing key points, complexity, follow-ups, gotchas"
+        ? "Card flipped to back — showing key points, complexity, follow-ups, gotchas, stumbles"
         : "Card flipped to front — showing problem summary"
     );
   }
@@ -225,6 +225,22 @@ export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps)
                 <section className="py-7 first:pt-0 last:pb-0">
                   <FlashcardSection label="gotchas">
                     <FlashcardList items={card.gotchas} />
+                  </FlashcardSection>
+                </section>
+              )}
+              {card.stumbles.length > 0 && (
+                <section className="py-7 first:pt-0 last:pb-0">
+                  <FlashcardSection label="where i tripped">
+                    <ul className="flex flex-col gap-2.5 pl-4 text-[15px] leading-[1.7] text-foreground [list-style:disc] marker:text-amber-500/80 dark:marker:text-amber-400/80">
+                      {card.stumbles.map((item, index) => (
+                        <li
+                          key={index}
+                          className="break-words [overflow-wrap:anywhere] pl-1"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </FlashcardSection>
                 </section>
               )}

@@ -120,7 +120,7 @@ export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
               </p>
             )}
             <div className="text-sm text-muted-foreground">
-              {parsedData.key_points.length} key points &middot; {parsedData.follow_ups.length} follow-ups &middot; {parsedData.gotchas.length} gotchas
+              {parsedData.key_points.length} key points &middot; {parsedData.follow_ups.length} follow-ups &middot; {parsedData.gotchas.length} gotchas &middot; {parsedData.stumbles.length} stumbles
               {parsedData.example && <> &middot; has example</>}
             </div>
           </CardContent>
