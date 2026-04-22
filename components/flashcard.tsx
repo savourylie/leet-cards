@@ -1,8 +1,8 @@
 "use client";
 
-import type { KeyboardEvent, ReactNode } from "react";
+import type { KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { useState } from "react";
-import { Trash2 } from "lucide-react";
+import { Minus, Pencil, Plus, Trash2 } from "lucide-react";
 
 import type { CardInput } from "@/lib/types";
 import { getDifficultyEyebrowClass, getDifficultyLabel } from "@/lib/card-display";
@@ -11,9 +11,13 @@ import { LeetCodeLinkButton } from "@/components/leetcode-link-button";
 
 type FlashcardProps = {
   card: CardInput;
+  completionCount?: number;
   className?: string;
   onFlip?: (isFlipped: boolean) => void;
   onDelete?: () => void;
+  onEditJson?: () => void;
+  onIncrementCompletion?: () => void;
+  onDecrementCompletion?: () => void;
 };
 
 type FlashcardFaceProps = {
@@ -88,7 +92,26 @@ function FlashcardList({ items }: { items: string[] }) {
   );
 }
 
-export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps) {
+function stopFlip(event: MouseEvent | KeyboardEvent) {
+  event.stopPropagation();
+}
+
+function handleControlKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.stopPropagation();
+  }
+}
+
+export function Flashcard({
+  card,
+  completionCount = 0,
+  className,
+  onFlip,
+  onDelete,
+  onEditJson,
+  onIncrementCompletion,
+  onDecrementCompletion,
+}: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [flipStateAnnouncement, setFlipStateAnnouncement] = useState("");
 
@@ -126,6 +149,15 @@ export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps)
                 <div className="flex items-center gap-1.5 text-[12px] font-medium tracking-[0.02em] text-muted-foreground">
                   <span className="tabular-nums">#{card.num}</span>
                   <LeetCodeLinkButton title={card.title} />
+                  {completionCount > 0 ? (
+                    <span
+                      aria-label={`Completed ${completionCount} time${completionCount === 1 ? "" : "s"}`}
+                      className="ml-1 inline-flex items-center gap-1 tabular-nums"
+                    >
+                      <span aria-hidden="true">✅</span>
+                      <span>× {completionCount}</span>
+                    </span>
+                  ) : null}
                 </div>
                 <h2 className="text-[28px] font-semibold leading-[1.15] tracking-[-0.02em] text-foreground break-words [overflow-wrap:anywhere]">
                   {card.title}
@@ -178,23 +210,77 @@ export function Flashcard({ card, className, onFlip, onDelete }: FlashcardProps)
           onFlip={handleFlip}
           className="[transform:rotateY(180deg)] overflow-y-auto px-8 py-10 sm:px-10 sm:py-12"
         >
-          {onDelete && (
-            <button
-              type="button"
-              aria-label="Delete card"
-              onClick={(e) => {
-                e.stopPropagation();
-                onDelete();
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.stopPropagation();
-                }
-              }}
-              className="absolute top-3 right-3 rounded-md p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              <Trash2 className="h-4 w-4" />
-            </button>
+          {(onDelete || onEditJson || onIncrementCompletion || onDecrementCompletion) && (
+            <div className="absolute top-3 right-3 flex items-center gap-1">
+              {(onIncrementCompletion || onDecrementCompletion) && (
+                <div className="mr-1 flex items-center gap-0.5 rounded-md bg-muted/40 px-1 py-0.5 text-[12px] font-medium text-muted-foreground">
+                  {onDecrementCompletion && (
+                    <button
+                      type="button"
+                      aria-label="Decrement completion count"
+                      onClick={(e) => {
+                        stopFlip(e);
+                        onDecrementCompletion();
+                      }}
+                      onKeyDown={handleControlKeyDown}
+                      disabled={completionCount <= 0}
+                      className="rounded p-1 hover:bg-foreground/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
+                    >
+                      <Minus className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+                  <span
+                    aria-label={`Completed ${completionCount} time${completionCount === 1 ? "" : "s"}`}
+                    className="inline-flex items-center gap-1 px-1 tabular-nums"
+                  >
+                    <span aria-hidden="true">✅</span>
+                    <span>{completionCount}</span>
+                  </span>
+                  {onIncrementCompletion && (
+                    <button
+                      type="button"
+                      aria-label="Increment completion count"
+                      onClick={(e) => {
+                        stopFlip(e);
+                        onIncrementCompletion();
+                      }}
+                      onKeyDown={handleControlKeyDown}
+                      className="rounded p-1 hover:bg-foreground/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      <Plus className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+                </div>
+              )}
+              {onEditJson && (
+                <button
+                  type="button"
+                  aria-label="Edit card JSON"
+                  onClick={(e) => {
+                    stopFlip(e);
+                    onEditJson();
+                  }}
+                  onKeyDown={handleControlKeyDown}
+                  className="rounded-md p-1.5 text-muted-foreground hover:bg-foreground/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <Pencil className="h-4 w-4" />
+                </button>
+              )}
+              {onDelete && (
+                <button
+                  type="button"
+                  aria-label="Delete card"
+                  onClick={(e) => {
+                    stopFlip(e);
+                    onDelete();
+                  }}
+                  onKeyDown={handleControlKeyDown}
+                  className="rounded-md p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              )}
+            </div>
           )}
           <div className="mx-auto w-full max-w-[60ch]">
             <div className="flex flex-col divide-y divide-border/50">

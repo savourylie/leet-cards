@@ -11,11 +11,12 @@ export type Card = {
   follow_ups: string[]
   gotchas: string[]
   stumbles: string[]
+  completion_count: number
   created_at: string
   last_reviewed: string | null
 }
 
-export type NewCard = Omit<Card, 'id' | 'created_at' | 'last_reviewed'>
+export type NewCard = Omit<Card, 'id' | 'created_at' | 'last_reviewed' | 'completion_count'>
 
 export type Database = {
   public: {
@@ -26,6 +27,7 @@ export type Database = {
           id?: number
           created_at?: string
           last_reviewed?: string | null
+          completion_count?: number
         }
         Update: Partial<Omit<Card, 'id'>>
         Relationships: []

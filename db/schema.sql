@@ -4,6 +4,7 @@
 --   ALTER TABLE cards ADD COLUMN description TEXT DEFAULT '';
 --   ALTER TABLE cards ADD COLUMN example TEXT DEFAULT '';
 --   ALTER TABLE cards ADD COLUMN stumbles JSONB DEFAULT '[]';
+--   ALTER TABLE cards ADD COLUMN completion_count INTEGER NOT NULL DEFAULT 0;
 
 CREATE TABLE cards (
   id SERIAL PRIMARY KEY,
@@ -18,6 +19,7 @@ CREATE TABLE cards (
   follow_ups JSONB DEFAULT '[]',
   gotchas JSONB DEFAULT '[]',
   stumbles JSONB DEFAULT '[]',
+  completion_count INTEGER NOT NULL DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   last_reviewed TIMESTAMPTZ
 );

@@ -8,9 +8,14 @@ import { toast } from "sonner";
 import type { Card, CardInput } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { deleteCard } from "@/app/admin/actions";
-import { updateLastReviewed } from "@/app/review/actions";
+import {
+  decrementCompletion,
+  incrementCompletion,
+  updateLastReviewed,
+} from "@/app/review/actions";
 import { Button } from "@/components/ui/button";
 import { Flashcard } from "@/components/flashcard";
+import { EditCardJsonDialog } from "@/components/edit-card-json-dialog";
 
 type ReviewNavigatorProps = {
   cards: Card[];
@@ -21,6 +26,8 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [reviewedIds, setReviewedIds] = useState<Set<number>>(new Set());
+  const [editOpen, setEditOpen] = useState(false);
+  const [editingCard, setEditingCard] = useState<Card | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
 
@@ -29,6 +36,7 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      if (editOpen) return;
       const target = event.target as HTMLElement;
       if (["INPUT", "TEXTAREA"].includes(target.tagName)) return;
 
@@ -65,7 +73,7 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [currentIndex, total, router]);
+  }, [currentIndex, total, router, editOpen]);
 
   if (total === 0) {
     return (
@@ -100,6 +108,29 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
       router.push(`/review/${cards[nextIndex].id}`)
     } else {
       router.push('/')
+    }
+  }
+
+  function handleEditJson() {
+    setEditingCard(currentCard);
+    setEditOpen(true);
+  }
+
+  async function handleIncrementCompletion() {
+    try {
+      await incrementCompletion(currentCard.id);
+      router.refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed to update count");
+    }
+  }
+
+  async function handleDecrementCompletion() {
+    try {
+      await decrementCompletion(currentCard.id);
+      router.refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed to update count");
     }
   }
 
@@ -160,8 +191,12 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
       >
         <Flashcard
           card={currentCard as unknown as CardInput}
+          completionCount={currentCard.completion_count}
           onFlip={handleFlip}
           onDelete={handleDelete}
+          onEditJson={handleEditJson}
+          onIncrementCompletion={handleIncrementCompletion}
+          onDecrementCompletion={handleDecrementCompletion}
         />
       </div>
 
@@ -187,6 +222,15 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
           Next →
         </Button>
       </div>
+
+      <EditCardJsonDialog
+        card={editingCard}
+        open={editOpen}
+        onOpenChange={(open) => {
+          setEditOpen(open);
+          if (!open) setEditingCard(null);
+        }}
+      />
     </div>
   );
 }
