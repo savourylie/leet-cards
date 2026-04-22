@@ -1,7 +1,7 @@
 "use client";
 
-import type { KeyboardEvent, MouseEvent, ReactNode } from "react";
-import { useState } from "react";
+import type { KeyboardEvent, MouseEvent, PointerEvent, ReactNode } from "react";
+import { useRef, useState } from "react";
 import { Minus, Pencil, Plus, Trash2 } from "lucide-react";
 
 import type { CardInput } from "@/lib/types";
@@ -33,6 +33,8 @@ type FlashcardSectionProps = {
   children: ReactNode;
 };
 
+const DRAG_THRESHOLD_PX = 5;
+
 function FlashcardFace({
   className,
   buttonLabel,
@@ -40,6 +42,27 @@ function FlashcardFace({
   onFlip,
   children,
 }: FlashcardFaceProps) {
+  const pointerDownPos = useRef<{ x: number; y: number } | null>(null);
+
+  function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
+    pointerDownPos.current = { x: event.clientX, y: event.clientY };
+  }
+
+  function handleClick(event: MouseEvent<HTMLDivElement>) {
+    const start = pointerDownPos.current;
+    pointerDownPos.current = null;
+    if (start) {
+      const dx = event.clientX - start.x;
+      const dy = event.clientY - start.y;
+      if (dx * dx + dy * dy > DRAG_THRESHOLD_PX * DRAG_THRESHOLD_PX) return;
+    }
+    if (typeof window !== "undefined") {
+      const selection = window.getSelection();
+      if (selection && selection.toString().length > 0) return;
+    }
+    onFlip();
+  }
+
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -53,7 +76,8 @@ function FlashcardFace({
       tabIndex={isVisible ? 0 : -1}
       aria-hidden={!isVisible}
       aria-label={buttonLabel}
-      onClick={onFlip}
+      onPointerDown={handlePointerDown}
+      onClick={handleClick}
       onKeyDown={handleKeyDown}
       className={cn(
         "absolute inset-0 flex h-full cursor-pointer flex-col overflow-hidden rounded-xl bg-card text-card-foreground ring-1 ring-foreground/10 [backface-visibility:hidden] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
