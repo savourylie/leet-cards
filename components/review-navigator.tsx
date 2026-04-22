@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useOptimistic, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -33,6 +33,12 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
 
   const total = cards.length;
   const currentCard = cards[currentIndex];
+
+  const [optimisticCount, applyCountDelta] = useOptimistic(
+    currentCard?.completion_count ?? 0,
+    (state: number, delta: number) => Math.max(0, state + delta),
+  );
+  const [, startCountTransition] = useTransition();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -116,22 +122,31 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
     setEditOpen(true);
   }
 
-  async function handleIncrementCompletion() {
-    try {
-      await incrementCompletion(currentCard.id);
-      router.refresh();
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Failed to update count");
-    }
+  function handleIncrementCompletion() {
+    const cardId = currentCard.id;
+    startCountTransition(async () => {
+      applyCountDelta(1);
+      try {
+        await incrementCompletion(cardId);
+        router.refresh();
+      } catch (e) {
+        toast.error(e instanceof Error ? e.message : "Failed to update count");
+      }
+    });
   }
 
-  async function handleDecrementCompletion() {
-    try {
-      await decrementCompletion(currentCard.id);
-      router.refresh();
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Failed to update count");
-    }
+  function handleDecrementCompletion() {
+    if (optimisticCount <= 0) return;
+    const cardId = currentCard.id;
+    startCountTransition(async () => {
+      applyCountDelta(-1);
+      try {
+        await decrementCompletion(cardId);
+        router.refresh();
+      } catch (e) {
+        toast.error(e instanceof Error ? e.message : "Failed to update count");
+      }
+    });
   }
 
   function handleTouchStart(e: React.TouchEvent) {
@@ -191,7 +206,7 @@ export function ReviewNavigator({ cards }: ReviewNavigatorProps) {
       >
         <Flashcard
           card={currentCard as unknown as CardInput}
-          completionCount={currentCard.completion_count}
+          completionCount={optimisticCount}
           onFlip={handleFlip}
           onDelete={handleDelete}
           onEditJson={handleEditJson}
