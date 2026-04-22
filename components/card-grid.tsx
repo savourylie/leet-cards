@@ -50,7 +50,18 @@ export function CardGrid({ cards }: CardGridProps) {
                 </div>
               </CardHeader>
               <CardContent className="flex items-center justify-between gap-3 text-sm text-muted-foreground">
-                <span>{formatRelativeReviewTime(card.last_reviewed)}</span>
+                <div className="flex items-center gap-2">
+                  <span>{formatRelativeReviewTime(card.last_reviewed)}</span>
+                  {card.completion_count > 0 ? (
+                    <span
+                      aria-label={`Completed ${card.completion_count} time${card.completion_count === 1 ? "" : "s"}`}
+                      className="inline-flex items-center gap-1 tabular-nums"
+                    >
+                      <span aria-hidden="true">✅</span>
+                      <span>× {card.completion_count}</span>
+                    </span>
+                  ) : null}
+                </div>
                 {isNew ? (
                   <Badge className="shrink-0 bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
                     New
