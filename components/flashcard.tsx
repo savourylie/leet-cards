@@ -101,6 +101,37 @@ function FlashcardSection({ label, children }: FlashcardSectionProps) {
   );
 }
 
+const URL_REGEX = /https?:\/\/[^\s]+/g;
+const TRAILING_PUNCT_REGEX = /[.,!?;:)\]]+$/;
+
+function renderItemWithLinks(text: string): ReactNode[] {
+  const parts: ReactNode[] = [];
+  let lastIndex = 0;
+  const matches = Array.from(text.matchAll(URL_REGEX));
+  matches.forEach((match, i) => {
+    const rawUrl = match[0];
+    const trailing = rawUrl.match(TRAILING_PUNCT_REGEX)?.[0] ?? "";
+    const url = trailing ? rawUrl.slice(0, -trailing.length) : rawUrl;
+    const start = match.index ?? 0;
+    if (start > lastIndex) parts.push(text.slice(lastIndex, start));
+    parts.push(
+      <a
+        key={`link-${i}`}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={stopFlip}
+        className="underline decoration-muted-foreground/60 underline-offset-[3px] transition-colors hover:text-foreground hover:decoration-foreground"
+      >
+        {url}
+      </a>,
+    );
+    lastIndex = start + url.length;
+  });
+  if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+  return parts;
+}
+
 function FlashcardList({ items }: { items: string[] }) {
   return (
     <ul className="flex flex-col gap-2.5 pl-4 text-[15px] leading-[1.7] text-foreground [list-style:disc] marker:text-muted-foreground/50">
@@ -109,7 +140,7 @@ function FlashcardList({ items }: { items: string[] }) {
           key={index}
           className="break-words [overflow-wrap:anywhere] pl-1"
         >
-          {item}
+          {renderItemWithLinks(item)}
         </li>
       ))}
     </ul>

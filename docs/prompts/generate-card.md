@@ -91,12 +91,21 @@ Each point must stand alone — no "first… then… finally" chains across bull
 
 Empty string only if the conversation truly never touched complexity. In that case, add a gotcha like `"complexity 沒討論 — 面試前補上"`.
 
-**`follow_ups`** — 1–3 interview-style follow-up questions **with their answers**, joined by `— ` (em dash) or `？— `. Match the existing card style:
-- `"為什麼 size 選質數？— 減少 mod 碰撞"`
-- `"Thread-safe LRU？— 加 mutex 或用 ConcurrentHashMap"`
-- `"如果要算最大島面積？— 在 BFS/DFS 中計數"`
+**`follow_ups`** — 1–3 total. Two valid bullet shapes, mixable within the same array:
 
-The answer must be grounded in the conversation or be a trivial corollary of its techniques. Do not invent follow-ups about topics the conversation never touched.
+1. **Interview-style Q&A** — a follow-up question **with its answer**, joined by `— ` (em dash) or `？— `. Match the existing card style:
+   - `"為什麼 size 選質數？— 減少 mod 碰撞"`
+   - `"Thread-safe LRU？— 加 mutex 或用 ConcurrentHashMap"`
+   - `"如果要算最大島面積？— 在 BFS/DFS 中計數"`
+
+2. **Recommended next LeetCode problem** — when the natural follow-up is *another LeetCode problem* (harder variant, close dual, common pairing), include the full LeetCode URL in the bullet so the card renderer can make it clickable. Format: one short pointer phrase, em dash, then the bare URL at the end. URL shape: `https://leetcode.com/problems/<kebab-slug>/` (trailing slash included). Examples:
+   - `"下一題試 3Sum — https://leetcode.com/problems/3sum/"`
+   - `"LFU cache 是 LRU 的進階版 — https://leetcode.com/problems/lfu-cache/"`
+   - `"Sorted 版本用 two-pointer — https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"`
+
+   Only include a related-problem bullet when it genuinely came up in the conversation or is a canonical next step for a well-known problem. Do not pad with loosely related problems. Never fabricate a URL — if unsure of the exact slug, omit the bullet.
+
+The answer (for Q&A bullets) must be grounded in the conversation or be a trivial corollary of its techniques. Do not invent follow-ups about topics the conversation never touched.
 
 **`gotchas`** — 0–3 canonical, problem-intrinsic traps. These are mistakes anyone solving this problem might make, independent of whether the user made them in this session. Concrete beats generic.
 
@@ -121,6 +130,7 @@ If the conversation shows no personal stumbles, leave `stumbles` empty. Do not f
 
 - Every array element is a standalone sentence. It must make sense read alone, out of order.
 - Plain text only inside strings. No `**bold**`, no `` `code` ``, no LaTeX, no HTML. Symbols are fine: `→`, `×`, `≥`, `O(n log n)`, parens, quotes, em dash, arrows.
+- Bare `https://…` URLs are permitted inside `follow_ups` bullets (and only there) so the renderer can linkify them. Write them raw — no `[text](url)` markdown, no `<angle>` brackets, no trailing punctuation that would break the URL.
 - Bilingual zh-TW + English within a single bullet is encouraged when it lands the point faster. Don't force either language.
 - Prefer concrete mechanics over abstract labels: `"每個 bucket 存 list of (key, value) tuples"` beats `"use collision handling"`.
 - Be ruthlessly short. If a bullet exceeds ~25 Chinese characters or ~15 English words, split it or trim it.
@@ -169,7 +179,8 @@ If a field's content is not supported by the conversation, leave it empty rather
   "complexity": "O(n) time, O(n) space",
   "follow_ups": [
     "如果 array 已排序？— Two-pointer 從兩端夾，O(n) time O(1) space",
-    "有重複值怎辦？— 先 check 再 insert 就能正確處理 [3,3] target 6"
+    "有重複值怎辦？— 先 check 再 insert 就能正確處理 [3,3] target 6",
+    "下一題試 3Sum — https://leetcode.com/problems/3sum/"
   ],
   "gotchas": [
     "回傳的是 indices 不是 values"
