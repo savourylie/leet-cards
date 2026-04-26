@@ -107,8 +107,9 @@ function EditCardJsonForm({ card, onOpenChange }: EditCardJsonFormProps) {
         <Textarea
           value={jsonStr}
           onChange={(event) => setJsonStr(event.target.value)}
-          className="min-h-[320px] font-mono text-sm"
+          className="h-[min(22rem,45dvh)] min-h-[240px] max-h-[45dvh] max-w-full field-sizing-fixed resize-y overflow-auto break-words font-mono text-sm [overflow-wrap:anywhere]"
           spellCheck={false}
+          wrap="soft"
           disabled={isSaving}
         />
         {error ? (

@@ -9,18 +9,25 @@ import { ZodError } from 'zod'
 import { cardSchema, type CardInput } from '@/lib/validation'
 import { createCard, checkCardExists } from '@/app/admin/actions'
 import { Button } from '@/components/ui/button'
+import { DialogFooter } from '@/components/ui/dialog'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
-export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
+type JsonPasteFormProps = {
+  layout?: 'page' | 'dialog'
+  onSuccess?: () => void
+}
+
+export function JsonPasteForm({ layout = 'page', onSuccess }: JsonPasteFormProps = {}) {
   const router = useRouter()
   const [jsonStr, setJsonStr] = useState('')
   const [parsedData, setParsedData] = useState<CardInput | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isDuplicate, setIsDuplicate] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+  const isDialogLayout = layout === 'dialog'
 
   useEffect(() => {
     if (!jsonStr.trim()) {
@@ -75,9 +82,19 @@ export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
     }
   }
 
+  const saveButton = (
+    <Button
+      onClick={handleSave}
+      disabled={!parsedData || !!error || isSaving}
+    >
+      {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      Save card
+    </Button>
+  )
+
   return (
-    <div className="space-y-4">
-      <div className="space-y-2">
+    <div className="min-w-0 space-y-4">
+      <div className="min-w-0 space-y-2">
         <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
           Paste JSON from Claude:
         </label>
@@ -85,13 +102,18 @@ export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
           value={jsonStr}
           onChange={(e) => setJsonStr(e.target.value)}
           placeholder={'{\n  "num": 706,\n  "title": "Design HashMap",\n  "difficulty": "easy",\n  ...\n}'}
-          className="min-h-[200px] font-mono text-sm"
+          spellCheck={false}
+          wrap="soft"
+          className={cn(
+            "min-h-[200px] max-w-full max-h-[55dvh] field-sizing-fixed resize-y overflow-auto break-words font-mono text-sm [overflow-wrap:anywhere]",
+            isDialogLayout && "h-[min(22rem,45dvh)] max-h-[45dvh]"
+          )}
         />
         {error && (
-          <p className="text-sm font-medium text-destructive">{error}</p>
+          <p className="break-words text-sm font-medium text-destructive [overflow-wrap:anywhere]">{error}</p>
         )}
         {isDuplicate && !error && (
-          <p className="text-sm font-medium text-amber-500 dark:text-amber-400">
+          <p className="break-words text-sm font-medium text-amber-500 [overflow-wrap:anywhere] dark:text-amber-400">
             Warning: A card with problem #{parsedData?.num} already exists. Saving will create a duplicate.
           </p>
         )}
@@ -102,7 +124,7 @@ export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
           <CardContent className="p-4 flex flex-col gap-2">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-muted-foreground font-mono">#{parsedData.num}</span>
-              <span className="font-semibold">{parsedData.title}</span>
+              <span className="min-w-0 break-words font-semibold [overflow-wrap:anywhere]">{parsedData.title}</span>
               <Badge
                 variant="secondary"
                 className={cn(
@@ -127,15 +149,11 @@ export function JsonPasteForm({ onSuccess }: { onSuccess?: () => void } = {}) {
         </Card>
       )}
 
-      <div className="flex justify-end">
-        <Button 
-          onClick={handleSave} 
-          disabled={!parsedData || !!error || isSaving}
-        >
-          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Save card
-        </Button>
-      </div>
+      {isDialogLayout ? (
+        <DialogFooter>{saveButton}</DialogFooter>
+      ) : (
+        <div className="flex justify-end">{saveButton}</div>
+      )}
     </div>
   )
 }

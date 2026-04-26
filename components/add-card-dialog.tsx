@@ -22,11 +22,11 @@ export function AddCardDialog() {
         <Plus className="mr-1 h-4 w-4" />
         Add card
       </DialogTrigger>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Add card</DialogTitle>
         </DialogHeader>
-        <JsonPasteForm onSuccess={() => setOpen(false)} />
+        <JsonPasteForm layout="dialog" onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   )
