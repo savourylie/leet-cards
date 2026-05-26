@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LeetCode Flashcard Reviewer (`leet-cards`)
 
-## Getting Started
+A personal flashcard web app for reviewing LeetCode problems during interview prep. Each card
+captures a problem's key points, complexity analysis, follow-up questions, and the mistakes you
+tend to make — closing the gap between "I solved it" and "I can explain it in an interview."
 
-First, run the development server:
+Single-user, no auth. Built with Next.js (App Router) and a local Supabase Postgres database.
+
+## What it does
+
+- **Review** — the landing page shows every card in a grid you can filter (difficulty, tag) and
+  sort (problem number, last reviewed). Click a card to flip through key points, complexity,
+  follow-ups, and gotchas.
+- **Add cards from a Claude session** — after practicing a problem, paste the JSON Claude produces
+  into `/admin`; the card is saved and immediately visible on the main page.
+- **Track progress** — each card keeps a completion count and a last-reviewed timestamp.
+
+## Prerequisites
+
+- **Node.js 20+** and **npm** (the repo uses `package-lock.json`).
+- **Docker** — required for the local Supabase stack (Postgres + PostgREST + Studio). Docker
+  Desktop, OrbStack, Colima, Podman, or Rancher Desktop all work.
+- **Supabase CLI** — `brew install supabase/tap/supabase` (macOS) or see the
+  [Supabase CLI docs](https://supabase.com/docs/guides/local-development) for other platforms.
+
+## Quick start
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Create .env.local (gitignored) pointing at the local stack
+cat > .env.local <<'EOF'
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<the sb_publishable_... key from `supabase status`>
+EOF
+
+# 3. Start the local Supabase stack (first run pulls Docker images;
+#    migrations + seed data are applied automatically on first start)
+npm run db:start
+
+# 4. Run the app
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000> (Next.js uses the next free port if 3000 is taken).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`npm run db:start` prints the local API URL and keys; run `supabase status` any time to reprint
+them. These are the shared local-dev defaults — fine for local use, but not secrets to rely on in
+production.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment variables
 
-## Learn More
+The app reads two variables from `.env.local`:
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Description | Local value |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase API URL | `http://127.0.0.1:54321` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Publishable (anon) key | the `sb_publishable_…` key from `supabase status` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the Next.js dev server (Turbopack, hot reload) |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
+| `npm run db:start` | Start the local Supabase stack (Docker) |
+| `npm run db:stop` | Stop the local Supabase stack |
+| `npm run db:reset` | Recreate the local DB from migrations + seed |
 
-## Deploy on Vercel
+The schema lives in `supabase/migrations/` and the seed data (your cards) in `supabase/seed.sql`.
+To change the schema, add a migration with `supabase migration new <name>`, then `npm run db:reset`
+to rebuild from scratch. Supabase Studio is at <http://localhost:54323> while the stack runs.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` — Next.js App Router. `page.tsx` (card grid), `review/` (flip-through review),
+  `admin/` (add / edit / delete cards). The `*/actions.ts` files are Server Actions used for writes.
+- `db/` — `index.ts` builds the typed Supabase client (`createDB()`); `types.ts` holds the
+  `Card` / `Database` types.
+- `components/` — UI: `flashcard`, `card-grid`, `card-filter`, `add-card-dialog`,
+  `admin-card-manager`, `review-navigator`, theme controls, plus `ui/` primitives.
+- `lib/` — helpers for card display/controls, LeetCode URL building, and Zod validation.
+- `supabase/` — `config.toml`, `migrations/` (schema), `seed.sql` (data). `backups/` holds raw
+  dumps and is gitignored.
+- `docs/` — PRD and design notes. (Note: `docs/TECH_STACK.md` predates the move to Supabase and
+  is out of date.)
+
+Data is a single `cards` table served through Supabase's auto-generated REST API (PostgREST).
+Row-Level Security is enabled with a permissive policy, since this is a single-user app.
